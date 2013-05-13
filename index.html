@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+.scroll-wrapper {
+  height: 471px;
+  width: 400px;
+  overflow: hidden;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+    border: 5px solid red;
+}
+.scroll-wrapper .scroll-area {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding-right: 20px;
+  margin-right: 20px;
+  position: relative;
+}
+.scroll-wrapper .scroll-track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  background: #fff;
+  border: 1px solid #aaa;
+}
+.scroll-wrapper .scroll-track .scroll-trigger {
+  position: absolute;
+  left: 2px;
+  height: 0;
+  width: 0;
+  display: block;
+  z-index: 2;
+  border-width: 5px;
+  border-style: solid;
+}
+.scroll-wrapper .scroll-track .scroll-trigger.top {
+  background: #fff;
+  top: 1px;
+  border-color: transparent transparent #aaa transparent;
+}
+.scroll-wrapper .scroll-track .scroll-trigger.bottom {
+  bottom: -1px;
+  border-color: #aaa transparent transparent transparent;
+}
+.scroll-wrapper .scroll-track .scroll-bar {
+  position: absolute;
+  z-index: 0;
+  margin: 16px 0;
+  top: 0;
+  left: 1px;
+  width: 12px;
+  height: 14px;
+  background: #aaa;
+}
+
+  </style>
+  <script src="lib/jquery.min.js"></script>
+  <script src="js/jquery.customScrollBar.js"></script>
+  <script>
+    $(function (){
+
+    var scrollMe = $('.customScrollBar');
+    scrollMe.customScrollBar();
+
+
+    });
+
+  </script>
+
+</head>
+<body>
+  <div class="customScrollBar">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam
+nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis
+natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+mus. Nulla posuere. Donec vitae dolor. Nullam tristique diam non
+turpis. Cras placerat accumsan nulla. Nullam rutrum. Nam vestibulum
+accumsan nisl. Lorem ipsum dolor sit amet, consectetuer adipiscing
+elit. Donec hendrerit tempor tellus. Donec pretium posuere tellus.
+Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus. Cum
+sociis natoque penatibus et magnis dis parturient montes, nascetur
+ridiculus mus. Nulla posuere. Donec vitae dolor. Nullam tristique diam
+non turpis. Cras placerat accumsan nulla. Nullam rutrum. Nam
+vestibulum accumsan nisl. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere
+tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec,
+purus. Cum sociis natoque penatibus et magnis dis parturient montes,
+nascetur ridiculus mus. Nulla posuere. Donec vitae dolor. Nullam
+tristique diam non turpis. Cras placerat accumsan nulla. Nullam
+rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Donec hendrerit tempor tellus. Donec
+pretium posuere tellus. Proin quam nisl, tincidunt et, mattis eget,
+convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl.
+</div>
+  </body>
+</html>
