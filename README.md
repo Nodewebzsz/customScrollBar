@@ -4,22 +4,22 @@ This plugin aims to create a lightweight custom scrollbar.
 
 ### Oh no!!! Another scrollbar plugin?
 
-"How can you...?" is what you're thinking?
+"How can you...?" *is what you're thinking?*
 
 Let me explain:
 
 I've seen quite a few plugins that try to replicate the scrolling and
-the scrollbars, yet I haven't found one that is really lightweight and
+the scrollbars, yet I haven't found one that is really lightweight,
 offers triggers (up-down-arrows) and does NOT use the
 "mousewheel"-plugin.
 
 Most implementations do not translate the native scrolling but rather
 use the mousewheel events.
 
-In my oppinion this is a bad thing so I created this simple plugin
+In my opinion this is a bad thing so I created this simple plugin
 that simply "hides" the original scrollbar and adds a second one to
 replace it. This way the scrollable div will still scroll natively but
-pass some acrtions to the new scrollbar.
+pass some actions to the new scrollbar.
 
 Interactions on the scrollbar itself will be translated to the
 scrollable div.
@@ -28,13 +28,15 @@ The scrollbar itself only listens to the scroll event.
 
 #### Usage
  Options:
-  theme: // any theme name
-  events: scrollEnded and/or clicked (return as array)
-  arrows: boolean (show or hide the clickable arrows)
+* theme: // any theme name
+* events: scrollEnded and/or clicked (return as array)
+* arrows: boolean (show or hide the clickable arrows)
 
+    // standard example
     $('.my-selector').customScrollBar();
 
-     scrollMe.customScrollBar({
+    // lion scrollbars example
+    scrollMe.customScrollBar({
        theme: 'lion-scroll-bar',
        events: ['scrollEnded', 'clicked'],
        arrows: false
