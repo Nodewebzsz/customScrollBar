@@ -26,13 +26,14 @@ scrollable div.
 
 The scrollbar itself only listens to the scroll event.
 
-#### Usage
- Options:
+#### Options
+
 * theme: // any theme name
 * events: scrollEnded and/or clicked (return as array)
 * arrows: boolean (show or hide the clickable arrows)
 
 
+#### Usage
     $('.my-selector').customScrollBar();
 
     $('.my-selector').customScrollBar({
