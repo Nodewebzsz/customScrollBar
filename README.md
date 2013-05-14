@@ -32,11 +32,10 @@ The scrollbar itself only listens to the scroll event.
 * events: scrollEnded and/or clicked (return as array)
 * arrows: boolean (show or hide the clickable arrows)
 
-    // standard example
+
     $('.my-selector').customScrollBar();
 
-    // lion scrollbars example
-    scrollMe.customScrollBar({
+    $('.my-selector').customScrollBar({
        theme: 'lion-scroll-bar',
        events: ['scrollEnded', 'clicked'],
        arrows: false
