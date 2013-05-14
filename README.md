@@ -1,4 +1,4 @@
-# customSrollBar
+# customScrollBar
 
 This plugin aims to create a lightweight custom scrollbar.
 
