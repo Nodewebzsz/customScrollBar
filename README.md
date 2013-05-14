@@ -34,13 +34,13 @@ The scrollbar itself only listens to the scroll event.
 
 
 #### Usage
-    $('.my-selector').customScrollBar();
+		$('.my-selector').customScrollBar();
 
-    $('.my-selector').customScrollBar({
-       theme: 'lion-scroll-bar',
-       events: ['scrollEnded', 'clicked'],
-       arrows: false
-     });
+		$('.my-selector').customScrollBar({
+			 theme: 'lion-scroll-bar',
+			 events: ['scrollEnded', 'clicked'],
+			 arrows: false
+		 });
 
 #### Alpha
 
