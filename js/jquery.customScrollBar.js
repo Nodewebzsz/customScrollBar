@@ -76,17 +76,25 @@
              $scrollTrack.addClass(options.theme);
            var thisMargin = parseInt(($scrollBar.css('margin-top')),10) * 2;
             // make sure our scrollbar is visible
-            if (scrollBarHeight < 64){
-                scrollBarHeight = 64;
+            if (scrollBarHeight < thisMargin * 2){
+                scrollBarHeight = thisMargin * 2;
             }
-            var scrollHasEnded = function (){
+            if (scrollBarHeight < 20){
+                scrollBarHeight = 20;
+            }            var scrollHasEnded = function (){
                 $scrollTrack.removeClass("scrolling");
             };
             // set the height of the scrollbar
             $scrollBar.css({
                 height: scrollBarHeight - thisMargin
             });
+            // dirty hack to prevent webkits drag-scroll
+            $scrollWrapper.on('scroll',function (){
+                var $this = $(this);
+                $this.scrollLeft(0);
+            });
             // handling the native mouse scroll
+
             $scrollArea.on('scroll', function (){
                 var $this = $(this);
                 thisScroll = parseInt(($this.scrollTop()),10);

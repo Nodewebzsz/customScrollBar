@@ -7,14 +7,26 @@
       padding: 0;
     }
     .scroll-wrapper {
-      height: 471px;
-      width: 400px;
+      height: 400px;
+      width: 300px;
       overflow: hidden;
       position: relative;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      border: 5px solid red;
+      display: inline-block;
+      margin: 50px 50px 0;
+    }
+    .nativeScrollBar {
+      height: 400px;
+      width: 300px;
+      overflow: auto;
+      position: relative;
+      display: inline-block;
+      margin: 50px 50px 0;
+    }
+    .customScrollBar {
+      padding: 0 20px;
+    }
+    .lionScrollBar {
+      padding: 0;
     }
     .scroll-wrapper .scroll-area {
       height: 100%;
@@ -23,6 +35,11 @@
       padding-right: 20px;
       margin-right: 20px;
       position: relative;
+    }
+    .scroll-track {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
     .lion-scroll-bar.scroll-track {
       position: absolute;
@@ -73,9 +90,9 @@
       transition-duration: 200ms, 50ms;
       transition-delay: 0ms, 0ms;
       width: 15px;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.8);
       border-color: rgba(0,0,0,0.2);
-      box-shadow: 10px 0 10px -10px rgba(0,0,0,0.2) inset;
+      box-shadow: 20px 0 20px -20px rgba(0,0,0,0.3) inset;
     }
 
     .lion-scroll-bar.scroll-track .scroll-bar {
@@ -86,7 +103,7 @@
       right: 2px;
       width: 7px;
       height: 14px;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.5);
       -webkit-border-radius: 7px;
       -moz-border-radius: 7px;
       border-radius: 7px;
@@ -99,7 +116,7 @@
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       border-radius: 10px;
-      background: rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.5);
       width: 10px;
     }
 
@@ -145,9 +162,7 @@
       background: #aaa;
     }
 
-    .customScrollBar, .lionScrollBar {
-      padding: 0 20px;
-    }
+
     </style>
     <script src="lib/jquery.min.js"></script>
     <script src="js/jquery.customScrollBar.js"></script>
@@ -171,7 +186,8 @@
 
   </head>
   <body>
-    <div class="customScrollBar">
+    <div class="nativeScrollBar">
+      <h3>native scroll-bar</h3>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
 hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam
 nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis
@@ -246,8 +262,84 @@ parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
 dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
 Nullam rutrum. Nam vestibulum accumsan nisl.
     </div>
-    <br> <br>
+    <div class="customScrollBar">
+      <h3>standard custom-scroll-bar</h3>
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam
+nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis
+natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+mus. Nulla posuere. Donec vitae dolor. Nullam tristique diam non
+turpis. Cras placerat accumsan nulla. Nullam rutrum. Nam vestibulum
+accumsan nisl. Lorem ipsum dolor sit amet, consectetuer adipiscing
+elit. Donec hendrerit tempor tellus. Donec pretium posuere tellus.
+Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus. Cum
+sociis natoque penatibus et magnis dis parturient montes, nascetur
+ridiculus mus. Nulla posuere. Donec vitae dolor. Nullam tristique diam
+non turpis. Cras placerat accumsan nulla. Nullam rutrum. Nam
+vestibulum accumsan nisl. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere
+tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec,
+purus. Cum sociis natoque penatibus et magnis dis parturient montes,
+nascetur ridiculus mus. Nulla posuere. Donec vitae dolor. Nullam
+tristique diam non turpis. Cras placerat accumsan nulla. Nullam
+rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Donec hendrerit tempor tellus. Donec
+pretium posuere tellus. Proin quam nisl, tincidunt et, mattis eget,
+convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl.
+    </div>
     <div class="lionScrollBar">
+      <h3>lion-like custom-scroll-bar</h3>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
 hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam
 nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis
