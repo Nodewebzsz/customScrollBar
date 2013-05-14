@@ -10,7 +10,7 @@ Let me explain:
 
 I've seen quite a few plugins that try to replicate the scrolling and
 the scrollbars, yet I haven't found one that is really lightweight and
-offers triggers (up-down-arrows) without the use of the
+offers triggers (up-down-arrows) and does NOT use the
 "mousewheel"-plugin.
 
 Most implementations do not translate the native scrolling but rather
@@ -27,9 +27,18 @@ scrollable div.
 The scrollbar itself only listens to the scroll event.
 
 #### Usage
+ Options:
+  theme: // any theme name
+  events: scrollEnded and/or clicked (return as array)
+  arrows: boolean (show or hide the clickable arrows)
 
     $('.my-selector').customScrollBar();
 
+     scrollMe.customScrollBar({
+       theme: 'lion-scroll-bar',
+       events: ['scrollEnded', 'clicked'],
+       arrows: false
+     });
 
 #### Alpha
 
@@ -46,6 +55,8 @@ if you find any
 * multiple instances on one page
 * interactive scrollbar
 * full control of the styling via CSS
+* optional events on scrollEnded or clicked
+* optional arrows (click-triggers)
 
 #### ToDo
 

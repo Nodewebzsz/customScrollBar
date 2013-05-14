@@ -1,84 +1,177 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-.scroll-wrapper {
-  height: 471px;
-  width: 400px;
-  overflow: hidden;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-    border: 5px solid red;
-}
-.scroll-wrapper .scroll-area {
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  padding-right: 20px;
-  margin-right: 20px;
-  position: relative;
-}
-.scroll-wrapper .scroll-track {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 16px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  height: 100%;
-  background: #fff;
-  border: 1px solid #aaa;
-}
-.scroll-wrapper .scroll-track .scroll-trigger {
-  position: absolute;
-  left: 2px;
-  height: 0;
-  width: 0;
-  display: block;
-  z-index: 2;
-  border-width: 5px;
-  border-style: solid;
-}
-.scroll-wrapper .scroll-track .scroll-trigger.top {
-  background: #fff;
-  top: 1px;
-  border-color: transparent transparent #aaa transparent;
-}
-.scroll-wrapper .scroll-track .scroll-trigger.bottom {
-  bottom: -1px;
-  border-color: #aaa transparent transparent transparent;
-}
-.scroll-wrapper .scroll-track .scroll-bar {
-  position: absolute;
-  z-index: 0;
-  margin: 16px 0;
-  top: 0;
-  left: 1px;
-  width: 12px;
-  height: 14px;
-  background: #aaa;
-}
+  <head>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .scroll-wrapper {
+      height: 471px;
+      width: 400px;
+      overflow: hidden;
+      position: relative;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      border: 5px solid red;
+    }
+    .scroll-wrapper .scroll-area {
+      height: 100%;
+      width: 100%;
+      overflow: auto;
+      padding-right: 20px;
+      margin-right: 20px;
+      position: relative;
+    }
+    .lion-scroll-bar.scroll-track {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 11px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      height: 100%;
+      background: rgba(255,255,255,0);
+      border: 1px solid transparent;
+      border-width: 0 0 0 1px;
+      -webkit-transition-duration: 0ms, 500ms;
+      -webkit-transition-delay: 1000ms, 500ms;
+      -webkit-transition-property: width, opacity;
+      -moz-transition-duration: 0ms, 500ms;
+      -moz-transition-delay: 1000ms, 500ms;
+      -moz-transition-property: width, opacity;
+      transition-duration: 0ms, 500ms;
+      transition-delay: 1000ms, 500ms;
+      transition-property: width, opacity;
+      opacity: 0;
+      overflow: hidden;
+      width: 0;
+    }
+    .lion-scroll-bar.scroll-track.scrolling {
+      opacity: 1;
+      -webkit-transition-duration: 0ms, 50ms;
+      -webkit-transition-delay: 0ms, 0ms;
+      -webkit-transition-property: width, opacity;
+      -moz-transition-duration: 0ms, 50ms;
+      -moz-transition-delay: 0ms, 0ms;
+      -moz-transition-property: width, opacity;
+      transition-duration: 0ms, 50ms;
+      transition-delay: 0ms, 0ms;
+      transition-property: width, opacity;
+      width: 10px;
+    }
+    .lion-scroll-bar.scroll-track.clicked, .lion-scroll-bar.scroll-track:hover {
+      opacity: 1;
+      -webkit-transition-duration: 200ms, 50ms;
+      -webkit-transition-delay: 0ms, 0ms;
+      -webkit-transition-property: width, opacity;
+      -moz-transition-duration: 200ms, 50ms;
+      -moz-transition-delay: 0ms, 0ms;
+      -moz-transition-property: width, opacity;
+      transition-duration: 200ms, 50ms;
+      transition-delay: 0ms, 0ms;
+      width: 15px;
+      background: rgba(255,255,255,0.5);
+      border-color: rgba(0,0,0,0.2);
+      box-shadow: 10px 0 10px -10px rgba(0,0,0,0.2) inset;
+    }
 
-  </style>
-  <script src="lib/jquery.min.js"></script>
-  <script src="js/jquery.customScrollBar.js"></script>
-  <script>
+    .lion-scroll-bar.scroll-track .scroll-bar {
+      position: absolute;
+      z-index: 0;
+      margin: 3px 0;
+      top: 0;
+      right: 2px;
+      width: 7px;
+      height: 14px;
+      background: rgba(0,0,0,0.6);
+      -webkit-border-radius: 7px;
+      -moz-border-radius: 7px;
+      border-radius: 7px;
+      -webkit-transition: width 200ms;
+      -moz-transition: width 200ms;
+      transition: width 200ms;
+    }
+
+    .lion-scroll-bar.scroll-track.clicked .scroll-bar, .lion-scroll-bar.scroll-track:hover .scroll-bar {
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.55);
+      width: 10px;
+    }
+
+    .custom-scroll-bar.scroll-track {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 16px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      height: 100%;
+      background: #fff;
+      border: 1px solid #aaa;
+    }
+    .custom-scroll-bar.scroll-track .scroll-trigger {
+      position: absolute;
+      left: 2px;
+      height: 0;
+      width: 0;
+      display: block;
+      z-index: 2;
+      border-width: 5px;
+      border-style: solid;
+    }
+    .custom-scroll-bar.scroll-track .scroll-trigger.top {
+      background: #fff;
+      top: 1px;
+      border-color: transparent transparent #aaa transparent;
+    }
+    .custom-scroll-bar.scroll-track .scroll-trigger.bottom {
+      bottom: -1px;
+      border-color: #aaa transparent transparent transparent;
+    }
+    .custom-scroll-bar.scroll-track .scroll-bar {
+      position: absolute;
+      z-index: 0;
+      margin: 16px 0;
+      top: 0;
+      left: 1px;
+      width: 12px;
+      height: 14px;
+      background: #aaa;
+    }
+
+    .customScrollBar, .lionScrollBar {
+      padding: 0 20px;
+    }
+    </style>
+    <script src="lib/jquery.min.js"></script>
+    <script src="js/jquery.customScrollBar.js"></script>
+    <script>
     $(function (){
 
-    var scrollMe = $('.customScrollBar');
-    scrollMe.customScrollBar();
+      var scrollMe = $('.customScrollBar');
+      scrollMe.customScrollBar();
+
+      var scrollMe = $('.lionScrollBar');
+      scrollMe.customScrollBar({
+        theme: 'lion-scroll-bar',
+        events: ['scrollEnded', 'clicked'],
+        arrows: false
+      });
 
 
     });
 
-  </script>
+    </script>
 
-</head>
-<body>
-  <div class="customScrollBar">
+  </head>
+  <body>
+    <div class="customScrollBar">
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
 hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam
 nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis
@@ -152,6 +245,82 @@ eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
 parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
 dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
 Nullam rutrum. Nam vestibulum accumsan nisl.
-</div>
+    </div>
+    <br> <br>
+    <div class="lionScrollBar">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam
+nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis
+natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+mus. Nulla posuere. Donec vitae dolor. Nullam tristique diam non
+turpis. Cras placerat accumsan nulla. Nullam rutrum. Nam vestibulum
+accumsan nisl. Lorem ipsum dolor sit amet, consectetuer adipiscing
+elit. Donec hendrerit tempor tellus. Donec pretium posuere tellus.
+Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus. Cum
+sociis natoque penatibus et magnis dis parturient montes, nascetur
+ridiculus mus. Nulla posuere. Donec vitae dolor. Nullam tristique diam
+non turpis. Cras placerat accumsan nulla. Nullam rutrum. Nam
+vestibulum accumsan nisl. Lorem ipsum dolor sit amet, consectetuer
+adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere
+tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec,
+purus. Cum sociis natoque penatibus et magnis dis parturient montes,
+nascetur ridiculus mus. Nulla posuere. Donec vitae dolor. Nullam
+tristique diam non turpis. Cras placerat accumsan nulla. Nullam
+rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Donec hendrerit tempor tellus. Donec
+pretium posuere tellus. Proin quam nisl, tincidunt et, mattis eget,
+convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl. Lorem ipsum dolor sit
+amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+Nullam rutrum. Nam vestibulum accumsan nisl.
+    </div>
   </body>
 </html>
