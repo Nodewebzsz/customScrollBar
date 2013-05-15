@@ -15,7 +15,8 @@
 
   Options:
   theme:     any theme name
-  -> events: scrollended
+  -> events: scrollstarted
+             scrollended
              thumbcclick
              ==>(call functions when event occurs)
   arrows:    boolean (show or hide the clickable arrows)
@@ -28,6 +29,9 @@
             var defaults = {
                 theme: 'custom-scroll-bar',
                 arrows: true,
+                scrollstarted: function(){
+                    // the scroll has started
+                },
                 scrollended: function(){
                     // the scroll has ended
                 },
@@ -48,8 +52,9 @@
             var scrollTriggerFunction;
             var deltaY;
             var clickYY;
+            var scrolling;
             var showArrows = "";
-            var scrollEnded = setTimeout(function(){},1);
+            var scrollEnded;
             // wrap our element
             thisElement.wrap('<div class=\"scroll-wrapper\" >');
             thisElement.wrap('<div class=\"scroll-area\" >');
@@ -93,6 +98,7 @@
             var scrollHasEnded = function (){
                 $scrollTrack.removeClass("scrolling");
                 options.scrollended();
+                scrolling = false;
             };
             // set the height of the scrollbar
             $scrollBar.css({
@@ -116,6 +122,9 @@
             // handling the native mouse scroll
 
             $scrollArea.on('scroll', function (){
+                if (!scrolling) {
+                    options.scrollstarted();
+                }
                 var $this = $(this);
                 thisScroll = parseInt(($this.scrollTop()),10);
                 clearTimeout(scrollEnded);
@@ -124,6 +133,7 @@
                 $scrollBar.css({
                     top: thisScroll / factor
                 });
+                scrolling = true;
 
             });
             thisElement.parent().parent().on('mousedown', '.scroll-track', function (e){
@@ -142,7 +152,7 @@
                 if ($( e.target).hasClass('scroll-bar')) {
                     $dragging = $(e.target);
                 }
-                //console.log(thisOffset, trackPosition, trackOffset, correctOffset, clickY, clickYY);
+
 
             })
             // scroll to position if the track is clicked (but prevent

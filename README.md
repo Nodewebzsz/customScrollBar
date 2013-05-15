@@ -30,6 +30,7 @@ The scrollbar itself only listens to the scroll event.
 
 * theme: // any theme name
 * events:
+ * scrollstarted
  * scrollended
  * thumbcclick
  * ==>(call functions when event occurs)
@@ -44,13 +45,16 @@ The scrollbar itself only listens to the scroll event.
 			 scrollended: function(){
                               // ...do something
                           },
-            thumbclicked: function(){
-                             // ...do something
-                         },
+             scrollended: function(){
+                              // ...do something
+                          },
+             thumbclicked: function(){
+                              // ...do something
+                           },
 			 arrows: false
 		 });
-		 
-		 
+
+
 #### Examples:
 
 http://pixelass.github.io/customScrollBar/
