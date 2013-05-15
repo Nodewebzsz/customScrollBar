@@ -29,7 +29,10 @@ The scrollbar itself only listens to the scroll event.
 #### Options
 
 * theme: // any theme name
-* events: scrollEnded and/or clicked (return as array)
+* events:
+ * scrollended
+ * thumbcclick
+ * ==>(call functions when event occurs)
 * arrows: boolean (show or hide the clickable arrows)
 
 
@@ -38,9 +41,19 @@ The scrollbar itself only listens to the scroll event.
 
 		$('.my-selector').customScrollBar({
 			 theme: 'lion-scroll-bar',
-			 events: ['scrollEnded', 'clicked'],
+			 scrollended: function(){
+                              // ...do something
+                          },
+            thumbclicked: function(){
+                             // ...do something
+                         },
 			 arrows: false
 		 });
+		 
+		 
+#### Examples:
+
+http://pixelass.github.io/customScrollBar/
 
 #### Alpha
 
