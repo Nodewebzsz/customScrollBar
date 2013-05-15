@@ -49,6 +49,11 @@ The scrollbar itself only listens to the scroll event.
                          },
 			 arrows: false
 		 });
+		 
+		 
+#### Examples:
+
+http://pixelass.github.io/customScrollBar/
 
 #### Alpha
 
