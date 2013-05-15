@@ -14,9 +14,11 @@
   Licensed under the MIT license: http://opensource.org/licenses/MIT
 
   Options:
-  theme: // any theme name
-  events: scrollEnded and/or clicked (return as array)
-  arrows: boolean (show or hide the clickable arrows)
+  theme:     any theme name
+  -> events: scrollended
+             thumbcclick
+             ==>(call functions when event occurs)
+  arrows:    boolean (show or hide the clickable arrows)
 */
 
 (function ($) {
@@ -25,8 +27,13 @@
         $(this).each(function (){
             var defaults = {
                 theme: 'custom-scroll-bar',
-                events: false,
-                arrows: true
+                arrows: true,
+                scrollended: function(){
+                    // the scroll has ended
+                },
+                thumbclick: function(){
+                    // the thumb was clicked
+                }
             };
             // extend the options
             options = $.extend(defaults, options);
@@ -34,6 +41,7 @@
             // set the variables
             var thisElement = $(this);
             var $body = $('body');
+            var $window = $(window);
             // for later use
             var clickY = 0;
             var $dragging = null;
@@ -73,21 +81,33 @@
             var $scrollTrack = $scrollWrapper.find('.scroll-track');
             var $scrollTriggerTop =  $scrollWrapper.find('.scroll-trigger.top');
             var $scrollTriggerBottom =  $scrollWrapper.find('.scroll-trigger.bottom');
-             $scrollTrack.addClass(options.theme);
-           var thisMargin = parseInt(($scrollBar.css('margin-top')),10) * 2;
+            $scrollTrack.addClass(options.theme);
+            var thisMargin = parseInt(($scrollBar.css('margin-top')),10) * 2;
             // make sure our scrollbar is visible
             if (scrollBarHeight < thisMargin * 2){
                 scrollBarHeight = thisMargin * 2;
             }
             if (scrollBarHeight < 20){
                 scrollBarHeight = 20;
-            }            var scrollHasEnded = function (){
+            }
+            var scrollHasEnded = function (){
                 $scrollTrack.removeClass("scrolling");
+                options.scrollended();
             };
             // set the height of the scrollbar
             $scrollBar.css({
                 height: scrollBarHeight - thisMargin
             });
+
+            // lion scrollbars handling
+            // on lion scrollbars flash up on page load
+            // let's add and remove the class to make it visible for a
+            // split second
+            $scrollTrack.addClass("scrolling");
+            setTimeout(function (){
+                $scrollTrack.removeClass("scrolling");
+            },600);
+
             // dirty hack to prevent webkits drag-scroll
             $scrollWrapper.on('scroll',function (){
                 var $this = $(this);
@@ -98,11 +118,9 @@
             $scrollArea.on('scroll', function (){
                 var $this = $(this);
                 thisScroll = parseInt(($this.scrollTop()),10);
-                if (options.events[0] === 'scrollEnded' || options.events[1] === 'scrollEnded') {
-                    clearTimeout(scrollEnded);
-                    scrollEnded = setTimeout(scrollHasEnded,200);
-                    $scrollTrack.addClass("scrolling");
-                }
+                clearTimeout(scrollEnded);
+                scrollEnded = setTimeout(scrollHasEnded,200);
+                $scrollTrack.addClass("scrolling");
                 $scrollBar.css({
                     top: thisScroll / factor
                 });
@@ -114,10 +132,9 @@
                 var trackOffset =  parseInt(($this.find('.scroll-bar').position().top),10);
                 var trackPosition =  $this.find('.scroll-bar').position().top / scrollBarHeight;
                 var correctOffset = e.pageY - thisOffset - trackOffset;
-                if (options.events[0] === 'clicked' || options.events[1] === 'clicked') {
-                    $this.addClass('clicked');
-                }
-                    // prevent the cursor from changing to text-input
+                $this.addClass('clicked');
+                options.thumbclick();
+                // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
                 clickY = thisOffset + correctOffset;
