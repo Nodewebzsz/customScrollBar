@@ -42,7 +42,7 @@ The scrollbar itself only listens to the scroll event.
 
 		$('.my-selector').customScrollBar({
 			 theme: 'lion-scroll-bar',
-			 scrollended: function(){
+			 scrollstarted: function(){
                               // ...do something
                           },
              scrollended: function(){
