@@ -32,7 +32,7 @@ The scrollbar itself only listens to the scroll event.
 * events:
  * scrollstarted
  * scrollended
- * thumbcclick
+ * thumbclick
  * ==>(call functions when event occurs)
 * arrows: boolean (show or hide the clickable arrows)
 
