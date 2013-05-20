@@ -29,7 +29,7 @@
             var defaults = {
                 theme: 'custom-scroll-bar',
                 arrows: true,
-                init: function(){
+                init: function(e,ui){
                     // initialized scrollbar
                 },
                 scrollstarted: function(e,ui){
@@ -105,7 +105,7 @@
             }
             var scrollHasEnded = function (){
                 $scrollTrack.removeClass("scrolling");
-                options.scrollended();
+                options.scrollended(thisElement, $scrollTrack);
                 scrolling = false;
             };
             // set the height of the scrollbar
@@ -129,7 +129,7 @@
 
             $scrollArea.on('scroll', function (){
                 if (!scrolling) {
-                    options.scrollstarted();
+                    options.scrollstarted(thisElement, $scrollTrack);
                 }
                 var $this = $(this);
                 thisScroll = parseInt(($this.scrollTop()),10);
@@ -149,7 +149,7 @@
                 var trackPosition =  $this.find('.scroll-bar').position().top / scrollBarHeight;
                 var correctOffset = e.pageY - thisOffset - trackOffset;
                 $this.addClass('clicked');
-                options.thumbclick();
+                options.thumbclick(thisElement, $scrollTrack);
                 // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
