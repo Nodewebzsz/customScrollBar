@@ -4,7 +4,7 @@ This plugin aims to create a lightweight custom scrollbar.
 
 ### Oh no!!! Another scrollbar plugin?
 
-"How can you...?" *is what you're thinking?*
+"Why did you...?" *is what you're thinking?*
 
 Let me explain:
 
@@ -30,10 +30,13 @@ The scrollbar itself only listens to the scroll event.
 
 * theme: // any theme name
 * events:
+ * init
  * scrollstarted
  * scrollended
  * thumbclick
- * ==>(call functions when event occurs)
+ * ==>
+  * call functions when event occurs
+  * access event or ui
 * arrows: boolean (show or hide the clickable arrows)
 
 
@@ -42,13 +45,16 @@ The scrollbar itself only listens to the scroll event.
 
 		$('.my-selector').customScrollBar({
 			 theme: 'lion-scroll-bar',
-			 scrollstarted: function(){
+			 init: function(e, ui){
                               // ...do something
                           },
-             scrollended: function(){
+			 scrollstarted: function(e, ui){
                               // ...do something
                           },
-             thumbclicked: function(){
+             scrollended: function(e, ui){
+                              // ...do something
+                          },
+             thumbclicked: function(e, ui){
                               // ...do something
                            },
 			 arrows: false
@@ -74,14 +80,14 @@ if you find any
 * multiple instances on one page
 * interactive scrollbar
 * full control of the styling via CSS
-* optional events on scrollEnded or clicked
+* events for init, scrollstart, scrollend, thumbclick
 * optional arrows (click-triggers)
 
 #### ToDo
 
 * Allow horizontal scrollbars
-* Fix scrollBarOffset if the factor is greater than 6 (or so)
-* add some options
-* get more ideas
+* add methods
+* add more events
 * refactor for cleaner code
-* write a documetation and provide more examples
+* write a documetation
+* export themes to separate stylesheets
