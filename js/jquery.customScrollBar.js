@@ -29,13 +29,16 @@
             var defaults = {
                 theme: 'custom-scroll-bar',
                 arrows: true,
-                scrollstarted: function(){
+                init: function(){
+                    // initialized scrollbar
+                },
+                scrollstarted: function(e,ui){
                     // the scroll has started
                 },
-                scrollended: function(){
+                scrollended: function(e,ui){
                     // the scroll has ended
                 },
-                thumbclick: function(){
+                thumbclick: function(e,ui){
                     // the thumb was clicked
                 }
             };
@@ -69,7 +72,7 @@
             // the factor will be used for calculating the relation between
             // our events and elements
             var factor = thisHeight / scrollAreaHeight;
-            var scrollBarHeight = scrollAreaHeight / factor;
+            var scrollBarHeight = parseInt((scrollAreaHeight / factor),10);
             if (options.arrows) {
                 showArrows =  '<span class=\"scroll-trigger top\"/><span class=\"scroll-trigger bottom\"/>';
             }
@@ -87,13 +90,18 @@
             var $scrollTriggerTop =  $scrollWrapper.find('.scroll-trigger.top');
             var $scrollTriggerBottom =  $scrollWrapper.find('.scroll-trigger.bottom');
             $scrollTrack.addClass(options.theme);
-            var thisMargin = parseInt(($scrollBar.css('margin-top')),10) * 2;
+            var thisMargin = parseInt(($scrollBar.css('margin-top')),10);
+            thisMargin += parseInt(($scrollBar.css('margin-bottom')),10);
+
             // make sure our scrollbar is visible
-            if (scrollBarHeight < thisMargin * 2){
-                scrollBarHeight = thisMargin * 2;
+            if (scrollBarHeight < thisMargin){
+               // scrollBarHeight = thisMargin * 2;
+             factor = thisHeight / (scrollAreaHeight - thisMargin);
             }
+
+            // make sure our scrollbar is visible
             if (scrollBarHeight < 20){
-                scrollBarHeight = 20;
+                scrollBarHeight += thisMargin;
             }
             var scrollHasEnded = function (){
                 $scrollTrack.removeClass("scrolling");
@@ -109,11 +117,9 @@
             // on lion scrollbars flash up on page load
             // let's add and remove the class to make it visible for a
             // split second
-            $scrollTrack.addClass("scrolling");
-            setTimeout(function (){
-                $scrollTrack.removeClass("scrolling");
-            },600);
 
+
+            options.init(thisElement, $scrollTrack);
             // dirty hack to prevent webkits drag-scroll
             $scrollWrapper.on('scroll',function (){
                 var $this = $(this);
@@ -136,7 +142,7 @@
                 scrolling = true;
 
             });
-            thisElement.parent().parent().on('mousedown', '.scroll-track', function (e){
+            $scrollTrack.on('mousedown', function (e){
                 var $this = $(this);
                 var thisOffset =  parseInt(($this.offset().top),10);
                 var trackOffset =  parseInt(($this.find('.scroll-bar').position().top),10);
@@ -191,6 +197,7 @@
             // on mosemove we will move our scrollbar if dragging is
             // active (after mousedown on scroll-track)
                 .on('mousemove', function (e){
+
                     if ($dragging) {
                         deltaY = e.pageY - clickY ;
                         $scrollArea.stop(true,true).animate({scrollTop: deltaY * factor},factor);
