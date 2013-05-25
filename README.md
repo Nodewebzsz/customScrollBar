@@ -28,23 +28,27 @@ The scrollbar itself only listens to the scroll event.
 
 #### Options
 
-* theme: // any theme name
+* theme: any theme name (string)
 * events:
- * init
- * scrollstarted
- * scrollended
- * thumbclick
- * ==>
-  * call functions when event occurs
-  * access event or ui
+  * init
+  * scrollstarted
+  * scrollended
+  * thumbclick
+  * ==>
+    * call functions when event occurs
+    * access event or ui
 * arrows: boolean (show or hide the clickable arrows)
+
+#### Methods
+* "destroy"
 
 
 #### Usage
 		$('.my-selector').customScrollBar();
+        $('.my-selector').customScrollBar('destroy');
 
 		$('.my-selector').customScrollBar({
-			 theme: 'lion-scroll-bar',
+			 theme: 'my custom theme',
 			 init: function(e, ui){
                               // ...do something
                           },
