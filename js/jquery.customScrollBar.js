@@ -16,9 +16,9 @@
   Options:
   theme:     any theme name
   -> events: scrollstarted
-             scrollended
-             thumbcclick
-             ==>(call functions when event occurs)
+  scrollended
+  thumbcclick
+  ==>(call functions when event occurs)
   arrows:    boolean (show or hide the clickable arrows)
 */
 
@@ -42,13 +42,28 @@
                     // the thumb was clicked
                 }
             };
-            // extend the options
-            options = $.extend(defaults, options);
 
             // set the variables
-            var thisElement = $(this);
-            var $body = $('body');
             var $window = $(window);
+            var $body = $('body');
+            var thisElement = $(this);
+            var processed = false;
+
+            if (thisElement.parent().hasClass('scroll-area') && thisElement.parent().parent().hasClass('scroll-wrapper')) {
+                processed = true;
+            }
+
+            if (options === 'destroy') {
+               if (processed) {
+                    var newElement = thisElement.parent().parent();
+                    var originalParent = newElement.parent();
+                    thisElement.clone().insertAfter(newElement);
+                    newElement.remove();
+                }
+                return false;
+            }
+            // extend the options
+            options = $.extend(defaults, options);
             // for later use
             var clickY = 0;
             var $dragging = null;
@@ -95,8 +110,8 @@
 
             // make sure our scrollbar is visible
             if (scrollBarHeight < thisMargin){
-               // scrollBarHeight = thisMargin * 2;
-             factor = thisHeight / (scrollAreaHeight - thisMargin);
+                // scrollBarHeight = thisMargin * 2;
+                factor = thisHeight / (scrollAreaHeight - thisMargin);
             }
 
             // make sure our scrollbar is visible
