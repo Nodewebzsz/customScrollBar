@@ -30,13 +30,13 @@ The scrollbar itself only listens to the scroll event.
 
 * theme: any theme name (string)
 * events:
-  * init
-  * scrollstarted
-  * scrollended
-  * thumbclick
-  * ==>
-    * call functions when event occurs
-    * access event or ui
+    * init
+    * scrollstarted
+    * scrollended
+    * thumbclick
+    * ==>
+        * call functions when event occurs
+        * access event or ui
 * arrows: boolean (show or hide the clickable arrows)
 
 #### Methods
