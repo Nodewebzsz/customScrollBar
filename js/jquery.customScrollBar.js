@@ -51,19 +51,19 @@
             if (thisElement.hasClass('customScrollBarProcessed')) {
                 processed = true;
             }
-            if (typeof options === "string") {
+            if (typeof options === "string" && processed) {
                 if (options === 'destroy') {
                     // destroy the custom scrollbar
-                    if (processed) {
                         var newElement = thisElement.parent().parent();
                         thisElement
                             .removeClass('customScrollBarProcessed')
                             .insertAfter(newElement);
                         newElement.remove();
-                    }
                     return false;
                 } else if (options === 'update') {
                     // update the plugin
+
+                    return false;
                 }
             } else {
                 // extend the options

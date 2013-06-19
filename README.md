@@ -86,6 +86,7 @@ if you find any
 * full control of the styling via CSS
 * events for init, scrollstart, scrollend, thumbclick
 * optional arrows (click-triggers)
+* destroy method
 
 #### ToDo
 
