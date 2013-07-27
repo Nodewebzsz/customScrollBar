@@ -12,10 +12,45 @@ body {
     min-height: 100%;
     width: 100%;
     background: #f4f4f4;
+    position: relative;
+}
+.viewporter {
+    padding-bottom: 100px;
+}
+h1 {
+    font-size: 2em;
+    margin: 0.5em 0;
+}
+h2 {
+    font-size: 1.8em;
+    margin: 0.5em 0;
 }
 h3 {
     font-size: 1.5em;
     margin: 0.5em 0;
+}
+#footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    padding: 20px;
+    box-shadow: 0 -1px 13px rgba(0,0,0,0.4);
+    background: #f9f9f9;
+}
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 95px;
+    padding: 20px;
+    box-shadow: 0 1px 13px rgba(0,0,0,0.4);
+    background: #f9f9f9;
+}
+#main {
+    padding: 135px 20px 100px;
 }
 /* from almaer.com/scrollbar/debug.html */
  .scroll-wrapper {
@@ -23,7 +58,7 @@ h3 {
     overflow: hidden;
     position: relative;
     margin: 50px;
-    width: 500px;
+    width: 960px;
     background: #fff;
     border: 1px solid #ccc;
     z-index: 0;
@@ -35,14 +70,20 @@ h3 {
     position: relative;
 }
 .scroll {
-    padding: 0;
+    padding: 20px;
     position: relative;
 }
 .scroll {
-    width: 900px;
+    width: auto;
 }
 .sc1 {
-    width: 510px;
+    width: 920px;
+}
+.sc2 {
+    width: 3120px;
+}
+.sc3 {
+    width: 1080px;
 }
 ::-webkit-scrollbar {
     height: 0;

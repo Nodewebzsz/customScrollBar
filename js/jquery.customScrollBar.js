@@ -115,6 +115,7 @@
             var $scrollbarThumb = $scrollbar['find']('.scrollbar-thumb');
             var scaleFactorY = thisHeight / wrapperHeight;
             var scrollThumbHeight = trackHeight / scaleFactorY;
+            scrollThumbHeight = (scrollThumbHeight < 30 ? 30 : scrollThumbHeight)
             var scrollFactorY = wrapperHeight / scrollThumbHeight;
 
             var $scrollbarHorizontal = $wrapper['find']('.scrollbar.horizontal');
@@ -125,6 +126,7 @@
             var $scrollbarThumbHorizontal = $scrollbarHorizontal['find']('.scrollbar-thumb');
             var scaleFactorX = thisWidth / wrapperWidth;
             var scrollThumbWidth = trackWidth / scaleFactorX;
+            scrollThumbWidth = (scrollThumbWidth < 30 ? 30 : scrollThumbWidth);
             var scrollFactorX = wrapperWidth / scrollThumbWidth;
 
 
