@@ -1,3 +1,4 @@
+;
 (function($, window) { // start closure
 
     'use strict';
@@ -20,25 +21,27 @@
         }
     };
 
-$.scrollbarWidth = function() {
-  var parent;
-  var child;
-  var width;
+    $.scrollbarWidth = function() {
+        var parent;
+        var child;
+        var width;
 
-  if ( width === undefined ) {
-    parent = $('<div style="width:50px;height:50px;overflow:auto"><div/></div>')['appendTo']('body');
-    child = parent['children']();
-    width = child['innerWidth']() - child['height'](99)['innerWidth']();
-    parent['remove']();
-  }
+        if (width === undefined) {
+            parent = $('<div style="width:50px;height:50px;overflow:auto"><div/></div>')['appendTo']('body');
+            child = parent['children']();
+            width = child['innerWidth']() - child['height'](99)['innerWidth']();
+            parent['remove']();
+        }
 
- return width;
-};
+        return width;
+    };
     var methods = {
         'init': function(options) {
             if (options) {
                 $['extend'](defaults, options);
             }
+            var $this = $(this);
+            $this['addClass']('original-content');
             var clickY = 0;
             var clickX = 0;
             var $dragging = null;
@@ -74,7 +77,7 @@ $.scrollbarWidth = function() {
             };
             var scrollWrapper = '<div class="scroll-wrapper customScrollBar ' + defaults['theme'] + '"/>';
             var scrollArea = '<div class="scroll-area"/>';
-            var $this = $(this);
+
             $this['wrap'](scrollWrapper);
             $this['wrap'](scrollArea);
             var $wrapper = $this['closest']('.scroll-wrapper');
@@ -98,7 +101,6 @@ $.scrollbarWidth = function() {
                     'paddingBottom': $.scrollbarWidth()
                 });
             }
-            $this['addClass']('original-content');
             thisHeight = $this['outerHeight'](true);
             thisWidth = $this['outerWidth'](true);
 
@@ -182,8 +184,10 @@ $.scrollbarWidth = function() {
                 scrolling = true;
             });
 
-            verticalScroll($area);
             horizontalScroll($area);
+            verticalScroll($area);
+                        horizontalScroll($area);
+
             $scrollbarThumb['css']({
                 height: scrollThumbHeight
             });
@@ -204,7 +208,7 @@ $.scrollbarWidth = function() {
                 // calculate the correct offset
                 clickY = thisOffset + correctOffset;
                 $dragging = $target;
-            $wrapper['addClass']('clicked clicked-vertically');
+                $wrapper['addClass']('clicked clicked-vertically');
 
             });
             $scrollbarThumbHorizontal['on']('mousedown', function(e) {
@@ -218,7 +222,7 @@ $.scrollbarWidth = function() {
                 // calculate the correct offset
                 clickX = thisOffset + correctOffset;
                 $dragging = $target;
-            $wrapper['addClass']('clicked clicked-horizontally');
+                $wrapper['addClass']('clicked clicked-horizontally');
 
             });
             $('body')['on']('mousemove', function(e) {
@@ -227,9 +231,9 @@ $.scrollbarWidth = function() {
                     if ($dragging['closest']('.scrollbar')['hasClass']('horizontal')) {
                         deltaX = e.pageX - clickX;
                         $area['scrollLeft'](deltaX * scaleFactorX)
-                   }
+                    }
                     if ($dragging['closest']('.scrollbar')['hasClass']('vertical')) {
-                        deltaY = e.pageY - clickY ;
+                        deltaY = e.pageY - clickY;
                         $area['scrollTop'](deltaY * scaleFactorY)
                     }
 
@@ -244,6 +248,7 @@ $.scrollbarWidth = function() {
         },
         'destroy': function() {
             var $rest = $(this)['closest']('.customScrollBar');
+            $rest['find']('.scroll-area')['off']('scroll')
             $(this)['removeClass']('original-content')['insertAfter']($rest);
             $rest['remove']();
             defaults['destroyed'](this, $rest);

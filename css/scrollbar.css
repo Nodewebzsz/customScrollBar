@@ -11,6 +11,7 @@ body {
     font-size: 13px;
     min-height: 100%;
     width: 100%;
+    background: #f4f4f4;
 }
 h3 {
     font-size: 1.5em;
@@ -23,19 +24,17 @@ h3 {
     position: relative;
     margin: 50px;
     width: 500px;
-    background: fff;
-    border: 1px solid red;
+    background: #fff;
+    border: 1px solid #ccc;
     z-index: 0;
 }
 .scroll-area {
     width: 100%;
     height: 100%;
-    padding-right: 20px;
-    padding-bottom: 20px;
     overflow: scroll;
     position: relative;
 }
-.scroll-area > .original-content {
+.scroll {
     padding: 30px;
     position: relative;
 }
@@ -43,7 +42,7 @@ h3 {
     width: 900px;
 }
 .sc1 {
-    width: 200%;
+    width: 1600px;
 }
 ::-webkit-scrollbar {
     height: 0;
@@ -51,7 +50,6 @@ h3 {
     display: none;
     opacity: 0;
 }
-
 .scrollbar {
     opacity: 0;
     -webkit-transition-property: opacity, width, height;
@@ -143,7 +141,7 @@ h3 {
 /* Turn on single button up on top, and down on bottom */
  .scrollbar.vertical .scrollbar-button.start.decrement, .scrollbar-button.end.increment {
     display: none;
-    height:10px;
+    height: 14px;
     z-index: 1;
 }
 /* Turn off the down area up on top, and up area on bottom */
@@ -216,7 +214,7 @@ h3 {
 /* Turn on single button up on top, and down on bottom */
  .scrollbar.horizontal .scrollbar-button.start.decrement, .scrollbar-button.end.increment {
     display: none;
-    width:10px;
+    width:14px;
     z-index: 1;
 }
 /* Turn off the down area up on top, and up area on bottom */
@@ -242,10 +240,10 @@ h3 {
     z-index: 0;
 }
 .scrollbar-vertical .scrollbar.horizontal .scrollbar-track {
-    right:14px;
+    right: 14px;
 }
 .scrollbar-horizontal .scrollbar.vertical .scrollbar-track {
-    bottom:14px;
+    bottom: 14px;
 }
 /* Top area above thumb and below up button */
  .scrollbar.horizontal .scrollbar-track-piece.start {
@@ -253,7 +251,7 @@ h3 {
     position: absolute;
     left: 0;
     top: 2px;
-    0: 0;
+    bottom: 0;
 }
 /* Bottom area below thumb and down button */
  .scrollbar.horizontal .scrollbar-track-piece.end {
