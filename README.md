@@ -39,8 +39,8 @@ The scrollbar itself only listens to the scroll event.
         * access event or ui
 
 #### Methods
-* "destroy"
-* "init"
+* destroy
+* init
 
 
 #### Usage
@@ -48,20 +48,19 @@ The scrollbar itself only listens to the scroll event.
         $('.my-selector').customScrollBar('destroy');
 
 		$('.my-selector').customScrollBar({
-			 theme: 'my custom theme',
-			 init: function(e, ui){
-                              // ...do something
-                          },
-			 scrollstarted: function(e, ui){
-                              // ...do something
-                          },
-             scrollended: function(e, ui){
-                              // ...do something
-                          },
-             thumbclicked: function(e, ui){
-                              // ...do something
-                           },
-			 arrows: false
+			  theme: 'my-custom-theme',
+		 	  created: function(e, ui){
+            // ...do something
+        },
+			  scrollstarted: function(e, ui){
+            // ...do something
+        },
+        scrollended: function(e, ui){
+            // ...do something
+        },
+        thumbclicked: function(e, ui){
+            // ...do something
+        }
 		 });
 
 
@@ -72,24 +71,30 @@ http://pixelass.github.io/customScrollBar/
 #### Alpha
 ##### Version 2
 
-This is the 2nd version please look vor the v1.x branch if you are looking for the old version
+This is the 2nd version please look vor the v1.x branch if you are looking for the old version.
+This version has a lot cleaner code and can be minified with the goolge-closure-compiler with ADVANCED_OPTIMIZATIONS.
 
+##### The elements used for the scrollbars are copied from the '-webkit-' scrollbars
+*(this allows us to do some very detailed styling):*
+
+* scrollbar
+* scrollbar-button
+* scrollbar-track
+* scrollbar-track-piece
+* scrollbar-thumb
 
 #### What can you expect
 
 * Vertical scrollbar
+* Horizontal scrollbar
 * multiple instances on one page
 * interactive scrollbar
 * full control of the styling via CSS
-* events for init, scrollstart, scrollend, thumbclick
+* events for created, scrollstart, scrollend, thumbclick, destroyed
 * optional arrows (click-triggers)
 * destroy method
 
 #### ToDo
 
-* Allow horizontal scrollbars
-* add methods
-* add more events
-* refactor for cleaner code
+* add more methods and events
 * write a documetation
-* export themes to separate stylesheets
