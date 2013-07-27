@@ -20,7 +20,20 @@
         }
     };
 
+$.scrollbarWidth = function() {
+  var parent;
+  var child;
+  var width;
 
+  if ( width === undefined ) {
+    parent = $('<div style="width:50px;height:50px;overflow:auto"><div/></div>')['appendTo']('body');
+    child = parent['children']();
+    width = child['innerWidth']() - child['height'](99)['innerWidth']();
+    parent['remove']();
+  }
+
+ return width;
+};
     var methods = {
         'init': function(options) {
             if (options) {
@@ -74,10 +87,16 @@
             if (thisHeight > wrapperHeight) {
                 $wrapper['append'](newScrollbar("vertical"));
                 $wrapper['addClass']('scrollbar-vertical')
+                $area['css']({
+                    'paddingRight': $.scrollbarWidth()
+                });
             }
             if (thisWidth > wrapperWidth) {
                 $wrapper['append'](newScrollbar("horizontal"));
                 $wrapper['addClass']('scrollbar-horizontal')
+                $area['css']({
+                    'paddingBottom': $.scrollbarWidth()
+                });
             }
             $this['addClass']('original-content');
             thisHeight = $this['outerHeight'](true);

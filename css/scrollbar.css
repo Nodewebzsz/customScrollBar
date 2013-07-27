@@ -44,6 +44,13 @@ h3 {
 .sc1 {
     width: 200%;
 }
+::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+    display: none;
+    opacity: 0;
+}
+
 .scrollbar {
     opacity: 0;
     -webkit-transition-property: opacity, width, height;
