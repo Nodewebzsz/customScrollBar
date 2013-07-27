@@ -9,26 +9,26 @@
 
         var scrollMe = $('.scroll');
         scrollMe.customScrollBar({
-            'theme': "lalala",
+            'theme': "lionbars",
             'created': function(e, ui) {
                 // initialized scrollbar
-                console.log('_ made it: ' + e + "\n" + ui)
+                console.log('made it: ' + e + "\n" + ui)
             },
             'destroyed': function(e, ui) {
                 // initialized scrollbar
-                console.log('_ destroyed it: ' + e + "\n" + ui)
+                console.log('destroyed it: ' + e + "\n" + ui)
             },
             'scrollstarted': function(e, ui) {
                 // the scroll has started
-                console.log('_ started it: ' + e + "\n" + ui)
+                console.log('started it: ' + e + "\n" + ui)
             },
             'scrollended': function(e, ui) {
                 // the scroll has ended
-                console.log('_ ended it: ' + e + "\n" + ui)
+                console.log('ended it: ' + e + "\n" + ui)
             },
             'thumbclick': function(e, ui) {
                 // the thumb was clicked
-                console.log('_ clicked it: ' + e + "\n" + ui)
+                console.log('clicked it: ' + e + "\n" + ui)
             }
         });
 

@@ -27,20 +27,20 @@ scrollable div.
 The scrollbar itself only listens to the scroll event.
 
 #### Options
-
 * theme: any theme name (string)
 * events:
-    * init
+    * created
     * scrollstarted
     * scrollended
     * thumbclick
+    * destroyed
     * ==>
         * call functions when event occurs
         * access event or ui
-* arrows: boolean (show or hide the clickable arrows)
 
 #### Methods
 * "destroy"
+* "init"
 
 
 #### Usage
@@ -70,12 +70,9 @@ The scrollbar itself only listens to the scroll event.
 http://pixelass.github.io/customScrollBar/
 
 #### Alpha
+##### Version 2
 
-This was developed for one perticular purpose but also solves some
-issues I had in past projects.
-
-There are probably some issues and bugs and I'll be happy to fix them
-if you find any
+This is the 2nd version please look vor the v1.x branch if you are looking for the old version
 
 
 #### What can you expect

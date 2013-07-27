@@ -3,26 +3,20 @@
     'use strict';
     var defaults = {
         theme: 'custom-scroll-bar',
-        'arrows': true,
         'created': function(e, ui) {
             // initialized scrollbar
-            console.log('made it: ' + e + "\n" + ui)
         },
         'destroyed': function(e, ui) {
-            // initialized scrollbar
-            console.log('destroyed it: ' + e + "\n" + ui)
+            // destroyed scrollbar
         },
         'scrollstarted': function(e, ui) {
             // the scroll has started
-            console.log('started it: ' + e + "\n" + ui)
         },
         'scrollended': function(e, ui) {
             // the scroll has ended
-            console.log('ended it: ' + e + "\n" + ui)
         },
         'thumbclick': function(e, ui) {
             // the thumb was clicked
-            console.log('clicked it: ' + e + "\n" + ui)
         }
     };
 
@@ -65,7 +59,7 @@
                 defaults['scrollended'](e, el);
                 scrolling = false;
             };
-            var scrollWrapper = '<div class="scroll-wrapper customScrollBar"/>';
+            var scrollWrapper = '<div class="scroll-wrapper customScrollBar ' + defaults['theme'] + '"/>';
             var scrollArea = '<div class="scroll-area"/>';
             var $this = $(this);
             $this['wrap'](scrollWrapper);
