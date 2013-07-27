@@ -25,6 +25,7 @@ h3 {
     width: 500px;
     background: fff;
     border: 1px solid red;
+    z-index: 0;
 }
 .scroll-area {
     width: 100%;
