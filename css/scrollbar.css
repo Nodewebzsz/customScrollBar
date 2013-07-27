@@ -9,7 +9,7 @@ html {
 body {
     font-family:'Helvetica Neue', Arial, sans-serif;
     font-size: 13px;
-        min-height: 100%;
+    min-height: 100%;
     width: 100%;
 }
 h3 {
@@ -35,8 +35,7 @@ h3 {
     position: relative;
 }
 .scroll-area > .original-content {
-    padding-right: 36px;
-    padding-bottom:10px;
+    padding: 30px;
     position: relative;
 }
 .scroll {
@@ -45,48 +44,78 @@ h3 {
 .sc1 {
     width: 200%;
 }
-
 .scrollbar {
     opacity: 0;
     -webkit-transition-property: opacity, width, height;
     -webkit-transition-duration: 200ms, 0ms, 0ms;
-    -webkit-transition-delay: 1000ms, 1200ms, 1200ms;}
+    -webkit-transition-delay: 1000ms, 1200ms, 1200ms;
+    -moz-transition-property: opacity, width, height;
+    -moz-transition-duration: 200ms, 0ms, 0ms;
+    -moz-transition-delay: 1000ms, 1200ms, 1200ms;
+    -o-transition-property: opacity, width, height;
+    -o-transition-duration: 200ms, 0ms, 0ms;
+    -o-transition-delay: 1000ms, 1200ms, 1200ms;
+    transition-property: opacity, width, height;
+    transition-duration: 200ms, 0ms, 0ms;
+    transition-delay: 1000ms, 1200ms, 1200ms;
+}
 .scrollbar-thumb {
     border-radius: 8px;
 }
-.clicked-vertically .scrollbar.vertical .scrollbar-track,
-.scrollbar.vertical:hover .scrollbar-track {
+.clicked-vertically .scrollbar.vertical .scrollbar-track, .scrollbar.vertical:hover .scrollbar-track {
     background: rgba(255, 255, 255, 0.8);
-    box-shadow: 2px 0 1px -1px rgba(0, 0, 0, 0.3) inset,
-    20px 0 20px -20px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 2px 0 1px -1px rgba(0, 0, 0, 0.3) inset, 20px 0 20px -20px rgba(0, 0, 0, 0.2) inset;
 }
-.clicked-horizontally .scrollbar.horizontal .scrollbar-track,
-.scrollbar.horizontal:hover .scrollbar-track {
+.clicked-horizontally .scrollbar.horizontal .scrollbar-track, .scrollbar.horizontal:hover .scrollbar-track {
     background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.3) inset,
-    0 20px 20px -20px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.3) inset, 0 20px 20px -20px rgba(0, 0, 0, 0.2) inset;
 }
-.clicked-vertically .scrollbar.vertical,
-.scrollbar.vertical:hover {
+.clicked-vertically .scrollbar.vertical, .scrollbar.vertical:hover {
     width: 14px;
-    opacity: 1;
-    -webkit-transition-property: opacity, width, height;
-    -webkit-transition-duration: 0ms, 0ms, 0ms;
-    -webkit-transition-delay: 0ms, 0ms, 0ms;}
-.clicked-horizontally .scrollbar.horizontal,
-.scrollbar.horizontal:hover {
-    height: 14px;
-    opacity: 1;
+    opacity: 0.8;
     -webkit-transition-property: opacity, width, height;
     -webkit-transition-duration: 0ms, 0ms, 0ms;
     -webkit-transition-delay: 0ms, 0ms, 0ms;
+    -moz-transition-property: opacity, width, height;
+    -moz-transition-duration: 0ms, 0ms, 0ms;
+    -moz-transition-delay: 0ms, 0ms, 0ms;
+    -o-transition-property: opacity, width, height;
+    -o-transition-duration: 0ms, 0ms, 0ms;
+    -o-transition-delay: 0ms, 0ms, 0ms;
+    transition-property: opacity, width, height;
+    transition-duration: 0ms, 0ms, 0ms;
+    transition-delay: 0ms, 0ms, 0ms;
 }
-
-.scrolling-vertically .scrollbar.vertical, .scrolling-horizontally .scrollbar.horizontal {
-    opacity: 1;
+.clicked-horizontally .scrollbar.horizontal, .scrollbar.horizontal:hover {
+    height: 14px;
+    opacity: 0.8;
     -webkit-transition-property: opacity, width, height;
     -webkit-transition-duration: 0ms, 0ms, 0ms;
     -webkit-transition-delay: 0ms, 0ms, 0ms;
+    -moz-transition-property: opacity, width, height;
+    -moz-transition-duration: 0ms, 0ms, 0ms;
+    -moz-transition-delay: 0ms, 0ms, 0ms;
+    -o-transition-property: opacity, width, height;
+    -o-transition-duration: 0ms, 0ms, 0ms;
+    -o-transition-delay: 0ms, 0ms, 0ms;
+    transition-property: opacity, width, height;
+    transition-duration: 0ms, 0ms, 0ms;
+    transition-delay: 0ms, 0ms, 0ms;
+}
+.scrolling-vertically .scrollbar.vertical, .scrolling-horizontally .scrollbar.horizontal {
+    opacity: 0.8;
+    -webkit-transition-property: opacity, width, height;
+    -webkit-transition-duration: 0ms, 0ms, 0ms;
+    -webkit-transition-delay: 0ms, 0ms, 0ms;
+    -moz-transition-property: opacity, width, height;
+    -moz-transition-duration: 0ms, 0ms, 0ms;
+    -moz-transition-delay: 0ms, 0ms, 0ms;
+    -o-transition-property: opacity, width, height;
+    -o-transition-duration: 0ms, 0ms, 0ms;
+    -o-transition-delay: 0ms, 0ms, 0ms;
+    transition-property: opacity, width, height;
+    transition-duration: 0ms, 0ms, 0ms;
+    transition-delay: 0ms, 0ms, 0ms;
 }
 /* Turn on a 13x13 scrollbar */
  .scrollbar.vertical {
