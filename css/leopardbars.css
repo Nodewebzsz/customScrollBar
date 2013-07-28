@@ -157,7 +157,7 @@
 .leopardbars .scrollbar.vertical .scrollbar-track-piece.start {
     background: none;
     position: absolute;
-    bottom: 16px;
+    top: 0;
     left: 0;
     right: 0;
 }

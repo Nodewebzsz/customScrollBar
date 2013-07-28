@@ -317,21 +317,17 @@
             $scrollTrackPiece['on']('mousedown', function(e) {
                 if ($(e.target)['hasClass']('start')) {
                     moveTop($area);
-
                 }
                 if ($(e.target)['hasClass']('end')) {
                     moveBottom($area);
-
                 }
             });
             $scrollTrackPieceHorizontal['on']('mousedown', function(e) {
                 if ($(e.target)['hasClass']('start')) {
                     moveLeft($area);
-
                 }
                 if ($(e.target)['hasClass']('end')) {
                     moveRight($area);
-
                 }
             });
 
