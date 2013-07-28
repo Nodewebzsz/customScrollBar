@@ -1,0 +1,263 @@
+
+.leopardbars .scrollbar {
+    background: #f7f7f7;
+}
+.leopardbars .scrollbar-thumb {
+    border-radius: 8px;
+}
+.leopardbars .scrollbar.vertical  {
+    box-shadow: 1px 0 1px rgba(0, 0, 0, 0.1) inset,
+    6px 0 6px -6px rgba(0,0,0,0.5) inset;
+
+}
+.leopardbars .scrollbar.horizontal  {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset,
+          0 6px 6px -6px rgba(0,0,0,0.5) inset;
+;
+}
+.leopardbars.clicked-vertically .scrollbar.vertical, .leopardbars .scrollbar.vertical:hover {
+}
+.leopardbars.clicked-horizontally .scrollbar.horizontal, .leopardbars .scrollbar.horizontal:hover {
+}
+.leopardbars.scrolling-vertically .scrollbar.vertical, .leopardbars.scrolling-horizontally .scrollbar.horizontal {
+}
+.leopardbars .scrollbar-track {
+    border-radius: 16px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.6) inset;
+}
+.leopardbars .scrollbar-thumb {
+    background: -webkit-linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -moz-linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -o-linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background-size: 100% 20px;
+    box-shadow: 1px 0 2px rgba(0,0,0,0.6),
+    6px 0 4px rgba(0,0,222,0.4) inset;
+}
+.leopardbars .scrollbar-thumb:before {
+  content: "";
+  position: absolute;
+  top: 2%;
+  left: 1px;
+  height: 96%;
+  width: 40%;
+  background: -webkit-linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+                                      rgba(255,255,255,0.3) 100%);
+  background: -moz-linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+                                   rgba(255,255,255,0.3) 100%);
+  background: -o-linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+                                 rgba(255,255,255,0.3) 100%);
+  background: linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+                              rgba(255,255,255,0.3) 100%);
+  border-radius: 10px;
+
+}
+
+.leopardbars .scrollbar.horizontal .scrollbar-thumb {
+    background: -webkit-linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -moz-linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -o-linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background-size: 20px 100%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.6),
+    0 6px 4px rgba(0,0,222,0.4) inset;
+}
+.leopardbars .scrollbar.horizontal .scrollbar-thumb:before {
+  top: 1%;
+  left: 2%;
+  height: 40%;
+  width: 96%;
+  background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+                                      rgba(255,255,255,0.3) 100%);
+  background: -moz-linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+                                   rgba(255,255,255,0.3) 100%);
+  background: -o-linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+                                 rgba(255,255,255,0.3) 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+                              rgba(255,255,255,0.3) 100%);
+
+}
+.leopardbars .scrollbar.vertical .scrollbar-track {
+    background: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 32px;
+    right: 0;
+    z-index: 0;
+}
+.leopardbars .scrollbar.horizontal .scrollbar-track {
+    background: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 32px;
+    z-index: 0;
+}
+.leopardbars.scrollbar-vertical .scrollbar.horizontal .scrollbar-track {
+    right: 48px;
+}
+.leopardbars.scrollbar-horizontal .scrollbar.vertical .scrollbar-track {
+    bottom: 48px;
+}
+.leopardbars.scrollbar-vertical .scrollbar.horizontal .scrollbar-button.increment.end {
+    right: 16px;
+}
+.leopardbars.scrollbar-horizontal .scrollbar.vertical .scrollbar-button.increment.end {
+    bottom: 16px;
+}
+.leopardbars.scrollbar-vertical .scrollbar.horizontal .scrollbar-button.decrement.start {
+    right: 32px;
+}
+.leopardbars.scrollbar-horizontal .scrollbar.vertical .scrollbar-button.decrement.start {
+    bottom: 32px;
+}
+/* Turn on a 13x13 scrollbar */
+.leopardbars .scrollbar.vertical {
+    width:16px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: auto;
+}
+.leopardbars .scrollbar .scrollbar-button {
+    background: none;
+    position: absolute;
+}
+.leopardbars .scrollbar.vertical .scrollbar-button {
+    left: 0;
+    right: 0;
+}
+.leopardbars .scrollbar.horizontal .scrollbar-button {
+    top: 0;
+    bottom: 0;
+}
+/* Turn on single button up on top, and down on bottom */
+.leopardbars .scrollbar.vertical .scrollbar-button.start.decrement, .leopardbars .scrollbar-button.end.increment {
+    display: block;
+    height: 16px;
+    z-index: 1;
+}
+/* Turn off the down area up on top, and up area on bottom */
+.leopardbars .scrollbar.vertical .scrollbar-button.start.increment, .leopardbars .scrollbar-button.end.decrement {
+    display: none;
+}
+/* Place The scroll down button at the bottom */
+.leopardbars .scrollbar.vertical .scrollbar-button.decrement.start {
+    bottom: 16px;
+}
+.leopardbars .scrollbar.vertical .scrollbar-button.increment.end {
+    bottom: 0;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.2) inset;
+
+}
+/* Top area above thumb and below up button */
+.leopardbars .scrollbar.vertical .scrollbar-track-piece.start {
+    background: none;
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+}
+/* Bottom area below thumb and down button */
+.leopardbars .scrollbar.vertical .scrollbar-track-piece.end {
+    background: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+/* Track below and above */
+.leopardbars .scrollbar.vertical .scrollbar-track-piece {
+    z-index: 0;
+}
+/* The thumb itself */
+.leopardbars .scrollbar.vertical .scrollbar-thumb {
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 2px;
+    right: 3px;
+    z-index: 1;
+}
+/* Turn on a 13x13 scrollbar */
+.leopardbars .scrollbar.horizontal {
+    height: 16px;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+/* Turn on single button up on top, and down on bottom */
+.leopardbars .scrollbar.horizontal .scrollbar-button.start.decrement, .leopardbars .scrollbar-button.end.increment {
+    display: block;
+    width: 16px;
+    z-index: 1;
+}
+/* Turn off the down area up on top, and up area on bottom */
+.leopardbars .scrollbar.horizontal .scrollbar-button.start.increment, .leopardbars .scrollbar-button.end.decrement {
+    display: none;
+}
+/* Place The scroll down button at the bottom */
+.leopardbars .scrollbar.horizontal .scrollbar-button.decrement.start {
+    right: 16px;
+}
+.leopardbars .scrollbar.horizontal .scrollbar-button.increment.end {
+    right: 0;
+        box-shadow: 1px 0 0 rgba(0,0,0,0.2) inset;
+
+}
+/* Top area above thumb and below up button */
+.leopardbars .scrollbar.horizontal .scrollbar-track-piece.start {
+    position: absolute;
+    right: 16px;
+    top: 0;
+    bottom: 0;
+}
+/* Bottom area below thumb and down button */
+.leopardbars .scrollbar.horizontal .scrollbar-track-piece.end {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+/* Track below and above */
+.leopardbars .scrollbar.horizontal .scrollbar-track-piece {
+    z-index: 0;
+}
+/* The thumb itself */
+.leopardbars .scrollbar.horizontal .scrollbar-thumb {
+    width: 50px;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    bottom: 3px;
+    z-index: 1;
+}
+/* Corner */
+.leopardbars .scrollbar-corner {
+    background-color: #f7f7f7;
+    position:absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    z-index: 2;
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.2) inset;
+
+}
+/* Resizer */
+.leopardbars .scrollbar-resizer {
+    background-color: #f7f7f7;
+    position:absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    z-index: 2;
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.2) inset;
+
+}

@@ -113,7 +113,7 @@
     transition-delay: 1200ms, 1200ms;
 }
 /* Turn on a 13x13 scrollbar */
- .lionbars .scrollbar.vertical {
+.lionbars .scrollbar.vertical {
     width:11px;
     position: absolute;
     top: 0;
@@ -130,17 +130,17 @@
     position: absolute;
 }
 /* Turn on single button up on top, and down on bottom */
- .lionbars .scrollbar.vertical .scrollbar-button.start.decrement, .lionbars .scrollbar-button.end.increment {
+.lionbars .scrollbar.vertical .scrollbar-button.start.decrement, .lionbars .scrollbar-button.end.increment {
     display: none;
     height: 14px;
     z-index: 1;
 }
 /* Turn off the down area up on top, and up area on bottom */
- .lionbars .scrollbar.vertical .scrollbar-button.start.increment, .lionbars .scrollbar-button.end.decrement {
+.lionbars .scrollbar.vertical .scrollbar-button.start.increment, .lionbars .scrollbar-button.end.decrement {
     display: none;
 }
 /* Place The scroll down button at the bottom */
- .lionbars .scrollbar.vertical .scrollbar-button.decrement.start {
+.lionbars .scrollbar.vertical .scrollbar-button.decrement.start {
     top: 0;
 }
 .lionbars .scrollbar.vertical .scrollbar-button.increment.end {
@@ -155,25 +155,25 @@
     z-index: 0;
 }
 /* Top area above thumb and below up button */
- .lionbars .scrollbar.vertical .scrollbar-track-piece.start {
+.lionbars .scrollbar.vertical .scrollbar-track-piece.start {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
 }
 /* Bottom area below thumb and down button */
- .lionbars .scrollbar.vertical .scrollbar-track-piece.end {
+.lionbars .scrollbar.vertical .scrollbar-track-piece.end {
     position: absolute;
     left: 0;
     bottom: 0;
     right: 0;
 }
 /* Track below and above */
- .lionbars .scrollbar.vertical .scrollbar-track-piece {
+.lionbars .scrollbar.vertical .scrollbar-track-piece {
     z-index: 0;
 }
 /* The thumb itself */
- .lionbars .scrollbar.vertical .scrollbar-thumb {
+.lionbars .scrollbar.vertical .scrollbar-thumb {
     height: 50px;
     background: rgba(0, 0, 0, 0.8);
     position: absolute;
@@ -183,7 +183,7 @@
     z-index: 1;
 }
 /* Turn on a 13x13 scrollbar */
- .lionbars .scrollbar.horizontal {
+.lionbars .scrollbar.horizontal {
     height: 11px;
     position: absolute;
     top: auto;
@@ -197,17 +197,17 @@
     bottom: 0;
 }
 /* Turn on single button up on top, and down on bottom */
- .lionbars .scrollbar.horizontal .scrollbar-button.start.decrement, .lionbars .scrollbar-button.end.increment {
+.lionbars .scrollbar.horizontal .scrollbar-button.start.decrement, .lionbars .scrollbar-button.end.increment {
     display: none;
     width:14px;
     z-index: 1;
 }
 /* Turn off the down area up on top, and up area on bottom */
- .lionbars .scrollbar.horizontal .scrollbar-button.start.increment, .lionbars .scrollbar-button.end.decrement {
+.lionbars .scrollbar.horizontal .scrollbar-button.start.increment, .lionbars .scrollbar-button.end.decrement {
     display: none;
 }
 /* Place The scroll down button at the bottom */
- .lionbars .scrollbar.horizontal .scrollbar-button.decrement.start {
+.lionbars .scrollbar.horizontal .scrollbar-button.decrement.start {
     left: 0;
 }
 .lionbars .scrollbar.horizontal .scrollbar-button.increment.end {
@@ -228,25 +228,25 @@
     bottom: 14px;
 }
 /* Top area above thumb and below up button */
- .lionbars .scrollbar.horizontal .scrollbar-track-piece.start {
+.lionbars .scrollbar.horizontal .scrollbar-track-piece.start {
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
 }
 /* Bottom area below thumb and down button */
- .lionbars .scrollbar.horizontal .scrollbar-track-piece.end {
+.lionbars .scrollbar.horizontal .scrollbar-track-piece.end {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
 }
 /* Track below and above */
- .lionbars .scrollbar.horizontal .scrollbar-track-piece {
+.lionbars .scrollbar.horizontal .scrollbar-track-piece {
     z-index: 0;
 }
 /* The thumb itself */
- .lionbars .scrollbar.horizontal .scrollbar-thumb {
+.lionbars .scrollbar.horizontal .scrollbar-thumb {
     width: 50px;
     background-color: rgba(0, 0, 0, 0.8);
     position: absolute;
@@ -256,10 +256,10 @@
     z-index: 1;
 }
 /* Corner */
- .lionbars .scrollbar-corner {
+.lionbars .scrollbar-corner {
     display: none;
 }
 /* Resizer */
- .lionbars .scrollbar-resizer {
+.lionbars .scrollbar-resizer {
     display: none;
 }
