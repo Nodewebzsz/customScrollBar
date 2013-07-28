@@ -34,13 +34,13 @@
                 console.log('clicked it: ' + e + "\n" + ui)
             }
         });
-        $('.theme-switcher').on('click', function(){
+        $('.theme-switcher').on('click', function() {
 
-          var theme = $(this).data('theme');
-        scrollMe.customScrollBar('destroy');
-        scrollMe.customScrollBar({
-            'theme': theme
-        });
+            var theme = $(this).data('theme');
+            scrollMe.customScrollBar('destroy');
+            scrollMe.customScrollBar({
+                'theme': theme
+            });
 
         });
 
@@ -59,8 +59,8 @@
         </a>
         <h1>customScrollbar | cross browser webkit scrollbars</h1>
         <div class="buttonrow">
-          <button class="button theme-switcher" data-theme="staticbars">static bars</button>
-          <button class="button theme-switcher" data-theme="lionbars">lion bars</button>
+            <button class="button theme-switcher" data-theme="staticbars">static bars</button>
+            <button class="button theme-switcher" data-theme="lionbars">lion bars</button>
         </div>
     </header>
     <main id="main">

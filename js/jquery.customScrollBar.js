@@ -136,11 +136,12 @@
             scrollThumbWidth = (scrollThumbWidth < 50 ? 50 : scrollThumbWidth);
             var scrollFactorX = wrapperWidth / scrollThumbWidth;
 
-            var $scrollTriggerBottom = $scrollbar['find']('.scrollbar-button.decrement');
-            var $scrollTriggerTop = $scrollbar['find']('.scrollbar-button.increment');
-            var $scrollTriggerRight = $scrollbarHorizontal['find']('.scrollbar-button.decrement');
-            var $scrollTriggerLeft = $scrollbarHorizontal['find']('.scrollbar-button.increment');
-
+            var $scrollTriggerBottom = $scrollbar['find']('.scrollbar-button.increment');
+            var $scrollTriggerTop = $scrollbar['find']('.scrollbar-button.decrement');
+            var $scrollTriggerRight = $scrollbarHorizontal['find']('.scrollbar-button.increment');
+            var $scrollTriggerLeft = $scrollbarHorizontal['find']('.scrollbar-button.decrement');
+            var $scrollTrackPiece = $scrollbarTrack['find']('.scrollbar-track-piece');
+            var $scrollTrackPieceHorizontal = $scrollbarTrackHorizontal['find']('.scrollbar-track-piece');
             var thisScrollX = $area['scrollLeft']();
             var thisScroll = $area['scrollTop']();
 
@@ -177,6 +178,48 @@
                 });
 
             };
+            var moveBottom = function(el) {
+                el['stop'](true, true)['animate']({
+                    'scrollTop': '+=' + scaleFactorY + 'px'
+                }, scaleFactorY);
+                scrollTriggerFunction = setInterval(function() {
+                    el['stop'](true, true)['animate']({
+                        'scrollTop': '+=' + scaleFactorY + 'px'
+                    }, scaleFactorY);
+                }, 1);
+            };
+            var moveTop = function(el) {
+                el['stop'](true, true)['animate']({
+                    'scrollTop': '-=' + scaleFactorY + 'px'
+                }, scaleFactorY);
+                scrollTriggerFunction = setInterval(function() {
+                    el['stop'](true, true)['animate']({
+                        'scrollTop': '-=' + scaleFactorY + 'px'
+                    }, scaleFactorY);
+                }, 1);
+            };
+
+            var moveLeft = function(el) {
+                el['stop'](true, true)['animate']({
+                    'scrollLeft': '-=' + scaleFactorX + 'px'
+                }, scaleFactorX);
+                scrollTriggerFunction = setInterval(function() {
+                    el['stop'](true, true)['animate']({
+                        'scrollLeft': '-=' + scaleFactorX + 'px'
+                    }, scaleFactorX);
+                }, 1);
+            };
+            var moveRight = function(el) {
+                el['stop'](true, true)['animate']({
+                    'scrollLeft': '+=' + scaleFactorX + 'px'
+                }, scaleFactorX);
+                scrollTriggerFunction = setInterval(function() {
+                    el['stop'](true, true)['animate']({
+                        'scrollLeft': '+=' + scaleFactorX + 'px'
+                    }, scaleFactorX);
+                }, 1);
+            };
+
             $area['on']('scroll', function(e) {
                 var currentThisScrollX = $area['scrollLeft']();
                 var currentThisScroll = $area['scrollTop']();
@@ -210,31 +253,35 @@
 
             defaults['created'](this, $wrapper);
             $wrapper['removeClass'](scrollClasses);
-            $scrollbarThumb['on']('mousedown', function(e) {
+            $scrollbarTrack['on']('mousedown', function(e) {
                 var $target = $(e.target);
                 var thisOffset = $scrollbar['position']()['top'];
-                var trackOffset = parseInt(($target['position']()['top']), 10);
+                var trackOffset = $target['position']()['top'];
                 var correctOffset = e.pageY - thisOffset - trackOffset;
                 defaults['thumbclick'](this, $wrapper);
                 // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
                 clickY = thisOffset + correctOffset;
-                $dragging = $target;
+                if ($target['hasClass']('scrollbar-thumb')) {
+                    $dragging = $target;
+                }
                 $wrapper['addClass']('clicked clicked-vertically');
 
             });
-            $scrollbarThumbHorizontal['on']('mousedown', function(e) {
+            $scrollbarTrackHorizontal['on']('mousedown', function(e) {
                 var $target = $(e.target);
                 var thisOffset = $scrollbarHorizontal['position']()['left'];
-                var trackOffset = parseInt(($target['position']()['left']), 10);
+                var trackOffset = $target['position']()['left'];
                 var correctOffset = e.pageX - thisOffset - trackOffset;
                 defaults['thumbclick'](this, $wrapper);
                 // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
                 clickX = thisOffset + correctOffset;
-                $dragging = $target;
+                if ($target['hasClass']('scrollbar-thumb')) {
+                    $dragging = $target;
+                }
                 $wrapper['addClass']('clicked clicked-horizontally');
 
             });
@@ -249,54 +296,43 @@
                         deltaY = e.pageY - clickY;
                         $area['scrollTop'](deltaY * scaleFactorY)
                     }
-
                 }
             })['on']('mouseup mouseleave blur', function() {
                 clearInterval(scrollTriggerFunction);
                 $dragging = null;
                 $wrapper['removeClass'](clickClasses);
-
-            })
+            });
             $scrollTriggerBottom['on']('mousedown', function() {
-                $area['stop'](true, true)['animate']({
-                    'scrollTop': '-=' + scaleFactorY + 'px'
-                }, scaleFactorY);
-                scrollTriggerFunction = setInterval(function() {
-                    $area['stop'](true, true)['animate']({
-                        'scrollTop': '-=' + scaleFactorY + 'px'
-                    }, scaleFactorY);
-                }, 1);
+                moveBottom($area);
             });
             $scrollTriggerTop['on']('mousedown', function() {
-                $area['stop'](true, true)['animate']({
-                    'scrollTop': '+=' + scaleFactorY + 'px'
-                }, scaleFactorY);
-                scrollTriggerFunction = setInterval(function() {
-                    $area['stop'](true, true)['animate']({
-                        'scrollTop': '+=' + scaleFactorY + 'px'
-                    }, scaleFactorY);
-                }, 1);
+                moveTop($area);
             });
-
             $scrollTriggerRight['on']('mousedown', function() {
-                $area['stop'](true, true)['animate']({
-                    'scrollLeft': '-=' + scaleFactorX + 'px'
-                }, scaleFactorX);
-                scrollTriggerFunction = setInterval(function() {
-                    $area['stop'](true, true)['animate']({
-                        'scrollLeft': '-=' + scaleFactorX + 'px'
-                    }, scaleFactorX);
-                }, 1);
+                moveRight($area);
             });
             $scrollTriggerLeft['on']('mousedown', function() {
-                $area['stop'](true, true)['animate']({
-                    'scrollLeft': '+=' + scaleFactorX + 'px'
-                }, scaleFactorX);
-                scrollTriggerFunction = setInterval(function() {
-                    $area['stop'](true, true)['animate']({
-                        'scrollLeft': '+=' + scaleFactorX + 'px'
-                    }, scaleFactorX);
-                }, 1);
+                moveLeft($area);
+            });
+            $scrollTrackPiece['on']('mousedown', function(e) {
+                if ($(e.target)['hasClass']('start')) {
+                    moveTop($area);
+
+                }
+                if ($(e.target)['hasClass']('end')) {
+                    moveBottom($area);
+
+                }
+            });
+            $scrollTrackPieceHorizontal['on']('mousedown', function(e) {
+                if ($(e.target)['hasClass']('start')) {
+                    moveLeft($area);
+
+                }
+                if ($(e.target)['hasClass']('end')) {
+                    moveRight($area);
+
+                }
             });
 
         },
