@@ -52,6 +52,8 @@
             var scrollEnded;
             var scrollClasses = "scrolling scrolling-horizontally scrolling-vertically";
             var clickClasses = "clicked clicked-horizontally clicked-vertically";
+            var scrollbarHelpers = '<div class="scrollbar-corner"/>';
+            scrollbarHelpers += '<div class="scrollbar-resizer"/>';
             var newScrollbar = function(axis) {
                 var scrollbar = '<div class="scrollbar ' + axis + '">';
 
@@ -66,6 +68,7 @@
 
                 scrollbar += '<div class="scrollbar-button end increment"/>';
                 scrollbar += '<div class="scrollbar-button end decrement"/>';
+
 
                 scrollbar += '</div>';
                 return scrollbar
@@ -101,6 +104,9 @@
                     'paddingBottom': $.scrollbarWidth()
                 });
             }
+            if (thisWidth > wrapperWidth && thisHeight > wrapperHeight) {
+                $wrapper['append'](scrollbarHelpers);
+            }
             thisHeight = $this['outerHeight'](true);
             thisWidth = $this['outerWidth'](true);
 
@@ -115,8 +121,9 @@
             var $scrollbarThumb = $scrollbar['find']('.scrollbar-thumb');
             var scaleFactorY = thisHeight / wrapperHeight;
             var scrollThumbHeight = trackHeight / scaleFactorY;
-            scrollThumbHeight = (scrollThumbHeight < 30 ? 30 : scrollThumbHeight)
+            scrollThumbHeight = (scrollThumbHeight < 50 ? 50 : scrollThumbHeight)
             var scrollFactorY = wrapperHeight / scrollThumbHeight;
+            console.log(scaleFactorY, scrollFactorY)
 
             var $scrollbarHorizontal = $wrapper['find']('.scrollbar.horizontal');
             var $scrollbarTrackHorizontal = $scrollbarHorizontal['find']('.scrollbar-track');
@@ -126,9 +133,13 @@
             var $scrollbarThumbHorizontal = $scrollbarHorizontal['find']('.scrollbar-thumb');
             var scaleFactorX = thisWidth / wrapperWidth;
             var scrollThumbWidth = trackWidth / scaleFactorX;
-            scrollThumbWidth = (scrollThumbWidth < 30 ? 30 : scrollThumbWidth);
+            scrollThumbWidth = (scrollThumbWidth < 50 ? 50 : scrollThumbWidth);
             var scrollFactorX = wrapperWidth / scrollThumbWidth;
 
+            var $scrollTriggerBottom = $scrollbar['find']('.scrollbar-button.decrement');
+            var $scrollTriggerTop = $scrollbar['find']('.scrollbar-button.increment');
+            var $scrollTriggerRight = $scrollbarHorizontal['find']('.scrollbar-button.decrement');
+            var $scrollTriggerLeft = $scrollbarHorizontal['find']('.scrollbar-button.increment');
 
             var thisScrollX = $area['scrollLeft']();
             var thisScroll = $area['scrollTop']();
@@ -246,6 +257,47 @@
                 $wrapper['removeClass'](clickClasses);
 
             })
+            $scrollTriggerBottom['on']('mousedown', function() {
+                $area['stop'](true, true)['animate']({
+                    'scrollTop': '-=' + scaleFactorY + 'px'
+                }, scaleFactorY);
+                scrollTriggerFunction = setInterval(function() {
+                    $area['stop'](true, true)['animate']({
+                        'scrollTop': '-=' + scaleFactorY + 'px'
+                    }, scaleFactorY);
+                }, 1);
+            });
+            $scrollTriggerTop['on']('mousedown', function() {
+                $area['stop'](true, true)['animate']({
+                    'scrollTop': '+=' + scaleFactorY + 'px'
+                }, scaleFactorY);
+                scrollTriggerFunction = setInterval(function() {
+                    $area['stop'](true, true)['animate']({
+                        'scrollTop': '+=' + scaleFactorY + 'px'
+                    }, scaleFactorY);
+                }, 1);
+            });
+
+            $scrollTriggerRight['on']('mousedown', function() {
+                $area['stop'](true, true)['animate']({
+                    'scrollLeft': '-=' + scaleFactorX + 'px'
+                }, scaleFactorX);
+                scrollTriggerFunction = setInterval(function() {
+                    $area['stop'](true, true)['animate']({
+                        'scrollLeft': '-=' + scaleFactorX + 'px'
+                    }, scaleFactorX);
+                }, 1);
+            });
+            $scrollTriggerLeft['on']('mousedown', function() {
+                $area['stop'](true, true)['animate']({
+                    'scrollLeft': '+=' + scaleFactorX + 'px'
+                }, scaleFactorX);
+                scrollTriggerFunction = setInterval(function() {
+                    $area['stop'](true, true)['animate']({
+                        'scrollLeft': '+=' + scaleFactorX + 'px'
+                    }, scaleFactorX);
+                }, 1);
+            });
 
         },
         'destroy': function() {

@@ -2,7 +2,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="css/scrollbar.css?v000001">
+    <link rel="stylesheet" type="text/css" href="css/frame.css?v000001">
+    <link rel="stylesheet" type="text/css" href="css/staticbars.css?v000001">
+    <link rel="stylesheet" type="text/css" href="css/lionbars.css?v000001">
     <script src="lib/jquery.min.js"></script>
     <script src="js/jquery.customScrollBar.js?v000001"></script>
     <script>
@@ -32,6 +34,15 @@
                 console.log('clicked it: ' + e + "\n" + ui)
             }
         });
+        $('.theme-switcher').on('click', function(){
+
+          var theme = $(this).data('theme');
+        scrollMe.customScrollBar('destroy');
+        scrollMe.customScrollBar({
+            'theme': theme
+        });
+
+        });
 
 
     });
@@ -47,6 +58,10 @@
             <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 99;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
         </a>
         <h1>customScrollbar | cross browser webkit scrollbars</h1>
+        <div class="buttonrow">
+          <button class="button theme-switcher" data-theme="staticbars">static bars</button>
+          <button class="button theme-switcher" data-theme="lionbars">lion bars</button>
+        </div>
     </header>
     <main id="main">
         <h2>Vertical scrollbar</h2>
