@@ -26,10 +26,10 @@
     box-shadow: 0 0 2px rgba(0,0,0,0.6) inset;
 }
 .leopardbars .scrollbar-thumb {
-    background: -webkit-linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
-    background: -moz-linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
-    background: -o-linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
-    background: linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -webkit-linear-gradient( bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -moz-linear-gradient( bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -o-linear-gradient( bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: linear-gradient( bottom, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
     background-size: 100% 20px;
     box-shadow: 1px 0 2px rgba(0,0,0,0.6),
     6px 0 4px rgba(0,0,222,0.4) inset;
@@ -37,43 +37,44 @@
 .leopardbars .scrollbar-thumb:before {
   content: "";
   position: absolute;
-  top: 2%;
-  left: 1px;
-  height: 96%;
+  top: 5px;
+  bottom: 5px;
+  left: 2px;
   width: 40%;
-  background: -webkit-linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+  background: -webkit-linear-gradient( right, rgba(255,255,255,0.5) 0%,
                                       rgba(255,255,255,0.3) 100%);
-  background: -moz-linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+  background: -moz-linear-gradient( right, rgba(255,255,255,0.5) 0%,
                                    rgba(255,255,255,0.3) 100%);
-  background: -o-linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+  background: -o-linear-gradient( right, rgba(255,255,255,0.5) 0%,
                                  rgba(255,255,255,0.3) 100%);
-  background: linear-gradient(to right, rgba(255,255,255,0.5) 0%,
+  background: linear-gradient( right, rgba(255,255,255,0.5) 0%,
                               rgba(255,255,255,0.3) 100%);
   border-radius: 10px;
 
 }
 
 .leopardbars .scrollbar.horizontal .scrollbar-thumb {
-    background: -webkit-linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
-    background: -moz-linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
-    background: -o-linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
-    background: linear-gradient(to right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -webkit-linear-gradient( right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -moz-linear-gradient( right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: -o-linear-gradient( right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
+    background: linear-gradient( right, rgb(125,185,232) 0%,rgb(91,167,216) 50%,rgb(125,185,232) 100%);
     background-size: 20px 100%;
     box-shadow: 0 1px 2px rgba(0,0,0,0.6),
     0 6px 4px rgba(0,0,222,0.4) inset;
 }
 .leopardbars .scrollbar.horizontal .scrollbar-thumb:before {
-  top: 1%;
-  left: 2%;
+  top: 2px;
+  left: 5px;
+  right: 5px;
   height: 40%;
-  width: 96%;
-  background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+  width: auto;
+  background: -webkit-linear-gradient( bottom, rgba(255,255,255,0.5) 0%,
                                       rgba(255,255,255,0.3) 100%);
-  background: -moz-linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+  background: -moz-linear-gradient( bottom, rgba(255,255,255,0.5) 0%,
                                    rgba(255,255,255,0.3) 100%);
-  background: -o-linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+  background: -o-linear-gradient( bottom, rgba(255,255,255,0.5) 0%,
                                  rgba(255,255,255,0.3) 100%);
-  background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,
+  background: linear-gradient( bottom, rgba(255,255,255,0.5) 0%,
                               rgba(255,255,255,0.3) 100%);
 
 }
@@ -213,7 +214,7 @@
 /* Top area above thumb and below up button */
 .leopardbars .scrollbar.horizontal .scrollbar-track-piece.start {
     position: absolute;
-    right: 16px;
+    left: 0;
     top: 0;
     bottom: 0;
 }

@@ -2,7 +2,7 @@
 
 This plugin aims to create a lightweight custom scrollbar.
 
-### Oh no!!! Another scrollbar plugin?
+## Oh no!!! Another scrollbar plugin?
 
 "Why did you...?" *is what you're thinking?*
 
@@ -26,7 +26,7 @@ scrollable div.
 
 The scrollbar itself only listens to the scroll event.
 
-#### Options
+## Options
 * theme: any theme name (string)
 * events:
     * created
@@ -38,21 +38,37 @@ The scrollbar itself only listens to the scroll event.
         * call functions when event occurs
         * access event or ui
 
-#### Methods
+## Methods
 * destroy
 * init
 
+## Events
+* create
+* scrollstart
+* scrollend
+* destroy
 
-#### Usage
-		$('.my-selector').customScrollBar();
-        $('.my-selector').customScrollBar('destroy');
+### You can listen to these events:
 
-		$('.my-selector').customScrollBar({
-			  theme: 'my-custom-theme',
-		 	  created: function(e, ui){
+    $('.my-selector').on('create', function(){
+        // element has been created
+    });
+    $('.my-selector').on('srollend', function(){
+        // scrolling has stopped
+    });
+
+
+### Usage:
+    $('.my-selector').customScrollBar();
+
+    $('.my-selector').customScrollBar('destroy');
+
+    $('.my-selector').customScrollBar({
+      theme: 'my-custom-theme',
+    created: function(e, ui){
             // ...do something
         },
-			  scrollstarted: function(e, ui){
+      scrollstarted: function(e, ui){
             // ...do something
         },
         scrollended: function(e, ui){
@@ -61,21 +77,21 @@ The scrollbar itself only listens to the scroll event.
         thumbclicked: function(e, ui){
             // ...do something
         }
-		 });
+  });
 
 
-#### Examples:
+## Examples:
 
 http://pixelass.github.io/customScrollBar/
 
-#### Alpha
-##### Version 2
+## Alpha
+### Version 2
 
 This is the 2nd version please look vor the v1.x branch if you are looking for the old version.
 This version has a lot cleaner code and can be minified with the goolge-closure-compiler with ADVANCED_OPTIMIZATIONS.
 
-##### The elements used for the scrollbars are copied from the '-webkit-' scrollbars
-*(this allows us to do some very detailed styling):*
+### The elements used for the scrollbars are copied from the '-webkit-' scrollbars
+**(this allows us to do some very detailed styling):**
 
 * scrollbar
 * scrollbar-button
@@ -83,7 +99,7 @@ This version has a lot cleaner code and can be minified with the goolge-closure-
 * scrollbar-track-piece
 * scrollbar-thumb
 
-#### What can you expect
+## What to expect
 
 * Vertical scrollbar
 * Horizontal scrollbar
@@ -94,7 +110,8 @@ This version has a lot cleaner code and can be minified with the goolge-closure-
 * optional arrows (click-triggers)
 * destroy method
 
-#### ToDo
+## ToDo
 
 * add more methods and events
 * write a documetation
+* allow nested scrollbars

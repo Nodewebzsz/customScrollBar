@@ -2,37 +2,46 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="css/frame.css?v000003">
-    <link rel="stylesheet" type="text/css" href="css/staticbars.css?v000003">
-    <link rel="stylesheet" type="text/css" href="css/lionbars.css?v000003">
-    <link rel="stylesheet" type="text/css" href="css/leopardbars.css?v000003">
+    <link rel="stylesheet" type="text/css" href="css/frame.css?v000004">
+    <link rel="stylesheet" type="text/css" href="css/staticbars.css?v000004">
+    <link rel="stylesheet" type="text/css" href="css/lionbars.css?v000004">
+    <link rel="stylesheet" type="text/css" href="css/leopardbars.css?v000004">
     <script src="lib/jquery.min.js"></script>
-    <script src="js/jquery.customScrollBar.js?v000003"></script>
+    <script src="js/jquery.customScrollBar.js?v000004"></script>
     <script>
     $(function() {
 
+
         var scrollMe = $('.scroll');
+        scrollMe.on('scrollend', function() {
+            console.log('end')
+        });
+
+        scrollMe.on('scrollstart', function() {
+            console.log('start')
+        });
+        scrollMe.on('create', function() {
+            console.log('create')
+        });
+        scrollMe.on('destroy', function() {
+            console.log('destroy')
+        });
         scrollMe.customScrollBar({
             'theme': "lionbars",
             'created': function(e, ui) {
                 // initialized scrollbar
-                console.log('made it: ' + e + "\n" + ui)
             },
             'destroyed': function(e, ui) {
                 // initialized scrollbar
-                console.log('destroyed it: ' + e + "\n" + ui)
             },
             'scrollstarted': function(e, ui) {
                 // the scroll has started
-                console.log('started it: ' + e + "\n" + ui)
             },
             'scrollended': function(e, ui) {
                 // the scroll has ended
-                console.log('ended it: ' + e + "\n" + ui)
             },
             'thumbclick': function(e, ui) {
                 // the thumb was clicked
-                console.log('clicked it: ' + e + "\n" + ui)
             }
         });
         $('.theme-switcher').on('click', function() {
@@ -44,6 +53,9 @@
             });
 
         });
+
+
+
 
 
     });
