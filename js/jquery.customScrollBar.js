@@ -42,6 +42,9 @@
                 $['extend'](defaults, options);
             }
             var $this = $(this);
+            if ($this['hasClass']('customScrollBar_processed')) {
+                return false;
+            }
             $this['addClass']('original-content'); // add a class to the element
 
 
@@ -90,6 +93,7 @@
             var thisWidth = $this['outerWidth'](true);
             var wrapperHeight = $wrapper['height']();
             var wrapperWidth = $wrapper['width']();
+            $area['css']({'height': wrapperHeight});
             // append scrollbars
             if (thisHeight > wrapperHeight) {
                 $wrapper['append'](newScrollbar("vertical"));
@@ -211,11 +215,9 @@
                 thisScrollX = $(element)['scrollLeft']();
                 var newLeft = thisScrollX / scrollFactorX;
                 $wrapper['addClass']('scrolling-horizontally');
-
                 $scrollbarThumbHorizontal['css']({
                     'left': newLeft
                 });
-
                 $scrollbarTrackPieceStartHorizontal['css']({
                     'width': (newLeft + scrollThumbWidth / 2)
                 });
@@ -282,15 +284,13 @@
 
 
 
-            $scrollbarTrack['on']('mousedown', function(e) {
+            $scrollbarThumb['on']('mousedown', function(e) {
                 var $target = $(e.target);
-                var thisOffset = $scrollbar['position']()['top'];
                 var trackOffset = $target['position']()['top'];
-                var correctOffset = e.pageY - thisOffset - trackOffset;
                 // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
-                clickY = thisOffset + correctOffset;
+                clickY = e.pageY - trackOffset;
                 if ($target['hasClass']('scrollbar-thumb')) {
                     $dragging = $target;
                 }
@@ -299,15 +299,13 @@
                 $this['trigger']('thumbclick');
 
             });
-            $scrollbarTrackHorizontal['on']('mousedown', function(e) {
+            $scrollbarThumbHorizontal['on']('mousedown', function(e) {
                 var $target = $(e.target);
-                var thisOffset = $scrollbarHorizontal['position']()['left'];
                 var trackOffset = $target['position']()['left'];
-                var correctOffset = e.pageX - thisOffset - trackOffset;
                 // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
-                clickX = thisOffset + correctOffset;
+                clickX = e.pageX - trackOffset;
                 if ($target['hasClass']('scrollbar-thumb')) {
                     $dragging = $target;
                 }
@@ -321,11 +319,11 @@
                 if ($dragging) {
                     if ($dragging['closest']('.scrollbar')['hasClass']('horizontal')) {
                         deltaX = e.pageX - clickX;
-                        $area['scrollLeft'](deltaX * scaleFactorX)
+                        $area['scrollLeft'](deltaX * scrollFactorX)
                     }
                     if ($dragging['closest']('.scrollbar')['hasClass']('vertical')) {
                         deltaY = e.pageY - clickY;
-                        $area['scrollTop'](deltaY * scaleFactorY)
+                        $area['scrollTop'](deltaY * scrollFactorY)
                     }
                 }
             })['on']('mouseup mouseleave blur', function() {
@@ -353,12 +351,13 @@
             });
             defaults['created'](this, $wrapper);
             $this['trigger']('create');
+            $this['addClass']('customScrollBar_processed');
         },
         'destroy': function() {
             var $this = $(this);
             var $rest = $this['closest']('.customScrollBar');
             $rest['find']('.scroll-area')['off']('scroll');
-            $this['removeClass']('original-content')['insertAfter']($rest);
+            $this['removeClass']('original-content customScrollBar_processed')['insertAfter']($rest);
             $rest['remove']();
             defaults['destroyed'](this, $rest);
             $this['trigger']('destroy');
