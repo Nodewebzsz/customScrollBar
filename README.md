@@ -46,6 +46,7 @@ The scrollbar itself only listens to the scroll event.
 * create
 * scrollstart
 * scrollend
+* thumbclick
 * destroy
 
 ### You can listen to these events:
@@ -53,7 +54,7 @@ The scrollbar itself only listens to the scroll event.
     $('.my-selector').on('create', function(){
         // element has been created
     });
-    $('.my-selector').on('srollend', function(){
+    $('.my-selector').on('scrollend', function(){
         // scrolling has stopped
     });
 

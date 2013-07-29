@@ -128,7 +128,6 @@
             var scrollHasEnded = function(e, el) {
                 $(el)['removeClass'](scrollClasses);
                 $this['trigger']('scrollend');
-
                 defaults['scrollended'](e, el);
                 scrolling = false;
             };
@@ -256,7 +255,8 @@
             verticalScroll($area);
             setThumbSize('vertical');
             setThumbSize('horizontal');
-            // end actions on init()
+            $wrapper['removeClass'](scrollClasses);
+           // end actions on init()
 
             $area['on']('scroll', function(e) {
                 var currentThisScrollX = $area['scrollLeft']();
@@ -282,13 +282,11 @@
 
 
 
-            $wrapper['removeClass'](scrollClasses);
             $scrollbarTrack['on']('mousedown', function(e) {
                 var $target = $(e.target);
                 var thisOffset = $scrollbar['position']()['top'];
                 var trackOffset = $target['position']()['top'];
                 var correctOffset = e.pageY - thisOffset - trackOffset;
-                defaults['thumbclick'](this, $wrapper);
                 // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
@@ -297,6 +295,8 @@
                     $dragging = $target;
                 }
                 $wrapper['addClass']('clicked clicked-vertically');
+                defaults['thumbclick'](this, $wrapper);
+                $this['trigger']('thumbclick');
 
             });
             $scrollbarTrackHorizontal['on']('mousedown', function(e) {
@@ -304,7 +304,6 @@
                 var thisOffset = $scrollbarHorizontal['position']()['left'];
                 var trackOffset = $target['position']()['left'];
                 var correctOffset = e.pageX - thisOffset - trackOffset;
-                defaults['thumbclick'](this, $wrapper);
                 // prevent the cursor from changing to text-input
                 e.preventDefault();
                 // calculate the correct offset
@@ -313,6 +312,8 @@
                     $dragging = $target;
                 }
                 $wrapper['addClass']('clicked clicked-horizontally');
+                defaults['thumbclick'](this, $wrapper);
+                $this['trigger']('thumbclick');
 
             });
             $('body')['on']('mousemove', function(e) {
@@ -345,35 +346,28 @@
                 doScroll(e, $area, 'left');
             });
             $scrollTrackPiece['on']('mousedown', function(e) {
-
                 scrollToPoint(e, 'vertical');
             });
             $scrollTrackPieceHorizontal['on']('mousedown', function(e) {
-
                 scrollToPoint(e, 'horizontal');
-
-
             });
             defaults['created'](this, $wrapper);
-            $(this)['trigger']('create');
+            $this['trigger']('create');
         },
         'destroy': function() {
-            var $rest = $(this)['closest']('.customScrollBar');
-            $rest['find']('.scroll-area')['off']('scroll')
-            $(this)['removeClass']('original-content')['insertAfter']($rest);
+            var $this = $(this);
+            var $rest = $this['closest']('.customScrollBar');
+            $rest['find']('.scroll-area')['off']('scroll');
+            $this['removeClass']('original-content')['insertAfter']($rest);
             $rest['remove']();
             defaults['destroyed'](this, $rest);
-            $(this)['trigger']('destroy');
-
+            $this['trigger']('destroy');
         }
-
     };
 
     $['fn']['customScrollBar'] = function(method) {
         var args = arguments;
-
         return this['each'](function() {
-
             if (methods[method]) {
                 return methods[method].apply(this, Array.prototype.slice.call(args));
             } else if (typeof method === 'object' || !method) {
@@ -382,9 +376,5 @@
                 $.error('Method ' + method + ' does not exist');
             }
         });
-
-
     };
-
-
 })(jQuery, window);
