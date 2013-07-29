@@ -88,7 +88,7 @@ http://pixelass.github.io/customScrollBar/
 ## Alpha
 ### Version 2
 
-This is the 2nd version please look vor the v1.x branch if you are looking for the old version.
+This is the 2nd version please look for the v1.x branch if you are looking for the old version.
 This version has a lot cleaner code and can be minified with the goolge-closure-compiler with ADVANCED_OPTIMIZATIONS.
 
 ### The elements used for the scrollbars are copied from the '-webkit-' scrollbars
