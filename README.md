@@ -66,19 +66,19 @@ The scrollbar itself only listens to the scroll event.
 
     $('.my-selector').customScrollBar({
       theme: 'my-custom-theme',
-    created: function(e, ui){
+      created: function(e, ui){
             // ...do something
-        },
+      },
       scrollstarted: function(e, ui){
-            // ...do something
-        },
-        scrollended: function(e, ui){
-            // ...do something
-        },
-        thumbclicked: function(e, ui){
-            // ...do something
-        }
-  });
+        // ...do something
+      },
+      scrollended: function(e, ui){
+        // ...do something
+      },
+      thumbclicked: function(e, ui){
+        // ...do something
+      }
+    });
 
 
 ## Examples:

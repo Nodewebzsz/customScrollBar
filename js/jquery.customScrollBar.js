@@ -93,7 +93,9 @@
             var thisWidth = $this['outerWidth'](true);
             var wrapperHeight = $wrapper['height']();
             var wrapperWidth = $wrapper['width']();
-            $area['css']({'height': wrapperHeight});
+            $area['css']({
+                'height': wrapperHeight
+            });
             // append scrollbars
             if (thisHeight > wrapperHeight) {
                 $wrapper['append'](newScrollbar("vertical"));
@@ -258,7 +260,7 @@
             setThumbSize('vertical');
             setThumbSize('horizontal');
             $wrapper['removeClass'](scrollClasses);
-           // end actions on init()
+            // end actions on init()
 
             $area['on']('scroll', function(e) {
                 var currentThisScrollX = $area['scrollLeft']();
@@ -355,12 +357,16 @@
         },
         'destroy': function() {
             var $this = $(this);
-            var $rest = $this['closest']('.customScrollBar');
-            $rest['find']('.scroll-area')['off']('scroll');
-            $this['removeClass']('original-content customScrollBar_processed')['insertAfter']($rest);
-            $rest['remove']();
-            defaults['destroyed'](this, $rest);
-            $this['trigger']('destroy');
+            if ($this['hasClass']('customScrollBar_processed')) {
+                var $rest = $this['closest']('.customScrollBar');
+                $rest['find']('.scroll-area')['off']('scroll');
+                $this['removeClass']('original-content customScrollBar_processed')['insertAfter']($rest);
+                $rest['remove']();
+                defaults['destroyed'](this, $rest);
+                $this['trigger']('destroy');
+            } else {
+                return false;
+            }
         }
     };
 
