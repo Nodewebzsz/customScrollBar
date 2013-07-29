@@ -1,5 +1,5 @@
 ;
-(function($, window) { // start closure
+(function($, window, document) { // start closure
 
 
     'use strict'; // use strict mode
@@ -41,7 +41,8 @@
             if (options) { // extend the defaults with the options
                 $['extend'](defaults, options);
             }
-            var $this = $(this);
+     var $body = $(document.body)
+           var $this = $(this);
             if ($this['hasClass']('customScrollBar_processed')) {
                 return false;
             }
@@ -146,12 +147,12 @@
                 if (direction === 'bottom' || direction === 'right') {
                     modifier = '+='; // modifier needs to be changed for right or bottom
                 }
-                var options = {
+                var opts = {
                     'scrollTop': modifier + factor + 'px'
                 };
                 if (direction === 'left' || direction === 'right') {
                     factor = scaleFactorX; // get the correct factor for horizontal
-                    options = {
+                    opts = {
                         'scrollLeft': modifier + factor + 'px'
                     }; // change the option
                 }
@@ -159,7 +160,7 @@
                 scrollTriggerFunction = setInterval(function() {
                     // perform the scrolling action relative to the content
                     // (bigger factor = faster scroll)
-                    $(el)['stop'](true, true)['animate'](options, factor);
+                    $(el)['stop'](true, true)['animate'](opts, factor);
                 }, intervalDur);
 
             };
@@ -207,11 +208,11 @@
                     height = '';
                     width = scrollThumbWidth;
                 }
-                var options = {
+                var opts = {
                     'height': height,
                     'width': width
                 }
-                $thumb['css'](options);
+                $thumb['css'](opts);
             };
             var horizontalScroll = function(element) {
                 thisScrollX = $(element)['scrollLeft']();
@@ -316,8 +317,7 @@
                 $this['trigger']('thumbclick');
 
             });
-            $('body')['on']('mousemove', function(e) {
-
+            $body['on']('mousemove', function(e) {
                 if ($dragging) {
                     if ($dragging['closest']('.scrollbar')['hasClass']('horizontal')) {
                         deltaX = e.pageX - clickX;
@@ -382,4 +382,4 @@
             }
         });
     };
-})(jQuery, window);
+})(jQuery, window, document);
