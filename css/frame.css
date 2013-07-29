@@ -53,8 +53,8 @@ h3 {
     height: 500px;
     overflow: hidden;
     position: relative;
-    margin: 50px;
-    width: 960px;
+    margin: 50px 10px;
+    width: 700px;
     background: #fff;
     border: 1px solid #ccc;
     z-index: 0;
@@ -73,13 +73,13 @@ h3 {
     width: auto;
 }
 .sc1 {
-    width: 920px;
+    width: auto;
 }
 .sc2 {
-    width: 3500px;
+    width: 4000px;
 }
 .sc3 {
-    width: 1080px;
+    width: 1500px;
 }
 ::-webkit-scrollbar {
     height: 0;
