@@ -135,11 +135,11 @@
                     $wrapper['append'](newScrollbar(value.scrollDir));
                     $wrapper['addClass']('scrollbar-' + value.scrollDir);
                     var opts = {
-                        'paddingBottom': scrollbarWidth()
+                        'paddingRight': scrollbarWidth()
                     }
                     if (index === 0) {
                         opts = {
-                            'paddingRight': scrollbarWidth()
+                            'paddingBottom': scrollbarWidth()
                         }
                     }
                     $area['css'](opts);
@@ -163,8 +163,8 @@
                 value.scrollbarThumb = value.scrollbarTrack['find']('.scrollbar-thumb');
                 value.scaleFactor = value.contentSize / value.wrapperSize;
                 value.scrollThumbSize = value.trackSize / value.scaleFactor;
-                value.scrollThumbSize = (value.scrollThumbSize < 20 ? 20 : value.scrollThumbSize);
                 value.scrollFactor = value.wrapperSize / value.scrollThumbSize;
+                value.scrollThumbSize = (value.scrollThumbSize < 30 ? 30 : value.scrollThumbSize);
                 value.scrollTrigger = value.scrollbar['find']('.scrollbar-button');
                 value.scrollTriggerInc = value.scrollTrigger['filter']('.increment');
                 value.scrollTriggerDec = value.scrollTrigger['filter']('.decrement');
