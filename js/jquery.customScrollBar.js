@@ -129,7 +129,7 @@
                 }
             };
             // create scrollbars when necessary
-            $['each']([data.x, data.y], function(index, value) {
+            map([data.x, data.y], function(index, value) {
                 if (value.contentSize > value.wrapperSize) {
                     $wrapper['append'](newScrollbar(value.scrollDir));
                     $wrapper['addClass']('scrollbar-' + value.scrollDir);
@@ -149,7 +149,7 @@
                 $wrapper['append'](scrollbarHelpers);
             }
             // extend our data
-            $['each']([data.x, data.y], function(index, value) {
+            map([data.x, data.y], function(index, value) {
                 // set the values for each direction
                 value.clickPos = 0;
                 value.delta = 0;
@@ -368,7 +368,7 @@
 
     $['fn']['customScrollBar'] = function(method) {
         var args = arguments;
-        return this['each'](function() {
+        return map(this,function() {
             if (methods[method]) {
                 return methods[method].apply(this, Array.prototype.slice.call(args));
             } else if (typeof method === 'object' || !method) {
