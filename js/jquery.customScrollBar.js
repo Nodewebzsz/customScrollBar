@@ -22,16 +22,6 @@
         }
     };
 
-    var map = function(array, mapFunction) {
-        var newArray = new Array(array.length);
-        for (var i = 0; i < array.length; i++) {
-            newArray[i] = mapFunction(array[i]);
-        }
-
-        return newArray;
-    };
-
-
     // get the width of the scrollbars
     var scrollbarWidth = function() {
         var parent;
