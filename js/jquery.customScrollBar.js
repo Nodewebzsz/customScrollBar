@@ -23,12 +23,12 @@
     };
 
     var map = function(array, mapFunction) {
-      var newArray = new Array(array.length);
-      for (var i = 0; i < array.length; i++) {
-        newArray[i] = mapFunction(array[i]);
-      }
+        var newArray = new Array(array.length);
+        for (var i = 0; i < array.length; i++) {
+            newArray[i] = mapFunction(array[i]);
+        }
 
-      return newArray;
+        return newArray;
     };
 
 
@@ -241,8 +241,8 @@
                 // trigger scroll by dragging the thumb
                 value.scrollbarThumb['on']('mousedown', function(e) {
                     if (e.which != 1 || e.button != 0) {
-                    return false;
-                }
+                        return false;
+                    }
                     var $target = $(e.target);
                     var trackOffset = $target['position']()['top'];
                     if (index === 0) {
@@ -265,21 +265,21 @@
                 // trigger scroll by clicking  the buttons
                 value.scrollTriggerInc['on']('mousedown', function(e) {
                     if (e.which != 1 || e.button != 0) {
-                    return false;
-                }
+                        return false;
+                    }
                     value.triggerScroll('inc');
                 });
                 value.scrollTriggerDec['on']('mousedown', function(e) {
                     if (e.which != 1 || e.button != 0) {
-                    return false;
-                }
+                        return false;
+                    }
                     value.triggerScroll('dec');
                 });
                 // trigger scroll by clicking the track-pieces
                 value.scrollTrackPiece['on']('mousedown', function(e) {
                     if (e.which != 1 || e.button != 0) {
-                    return false;
-                }
+                        return false;
+                    }
                     var delta = e.pageY - value.scrollbarTrack['offset']()['top'];
                     if (index === 0) {
                         delta = e.pageX - value.scrollbarTrack['offset']()['left'];
@@ -315,7 +315,7 @@
                     data.x.performScroll();
                 }
                 // if we this is the first scrollevent we can send the scrollstart events
-                // will only get once until the next scrollend
+                // will only get called once until the next scrollend
                 if (!scrolling) {
                     $node['trigger']('scrollstart');
                     defaults['scrollstarted'](this, $wrapper);
