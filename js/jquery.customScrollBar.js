@@ -22,6 +22,16 @@
         }
     };
 
+    var map = function(array, mapFunction) {
+      var newArray = new Array(array.length);
+      for (var i = 0; i < array.length; i++) {
+        newArray[i] = mapFunction(array[i]);
+      }
+
+      return newArray;
+    };
+
+
     // get the width of the scrollbars
     var scrollbarWidth = function() {
         var parent;
@@ -128,8 +138,9 @@
                     }
                 }
             };
+
             // create scrollbars when necessary
-            $['each']([data.x, data.y], function(index, value) {
+            $([data.x, data.y])['map'](function(index, value) {
                 if (value.contentSize > value.wrapperSize) {
                     $wrapper['append'](newScrollbar(value.scrollDir));
                     $wrapper['addClass']('scrollbar-' + value.scrollDir);
@@ -149,7 +160,7 @@
                 $wrapper['append'](scrollbarHelpers);
             }
             // extend our data
-            $['each']([data.x, data.y], function(index, value) {
+            $([data.x, data.y])['map'](function(index, value) {
                 // set the values for each direction
                 value.clickPos = 0;
                 value.delta = 0;
