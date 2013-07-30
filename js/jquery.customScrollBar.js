@@ -21,6 +21,7 @@
             // the thumb was clicked
         }
     };
+
     // get the width of the scrollbars
     var scrollbarWidth = function() {
         var parent;
@@ -34,20 +35,27 @@
         }
         return width;
     };
-    //define some methods
 
+    //define some methods
     var methods = {
         'init': function(options) {
             if (options) { // extend the defaults with the options
                 $['extend'](defaults, options);
             }
-     var $body = $(document.body)
-           var $this = $(this);
-            if ($this['hasClass']('customScrollBar_processed')) {
+            var $body = $(document.body);
+            var $node = $(this);
+
+
+            if ($node['hasClass']('customScrollBar_processed')) {
                 return false;
             }
-            $this['addClass']('original-content'); // add a class to the element
+            $node['addClass']('original-content'); // add a class to the element
 
+            // define variables
+            var $dragging = null;
+            var scrollTriggerFunction;
+            var scrolling;
+            var scrollEnded;
 
             // class collections
             var scrollClasses = "scrolling scrolling-horizontally scrolling-vertically";
@@ -58,274 +66,271 @@
             var scrollbarHelpers = '<div class="scrollbar-corner"/>';
             scrollbarHelpers += '<div class="scrollbar-resizer"/>';
             var newScrollbar = function(axis) {
-                var scrollbar = '<div class="scrollbar ' + axis + '">';
-
-                scrollbar += '<div class="scrollbar-button start increment"/>';
-                scrollbar += '<div class="scrollbar-button start decrement"/>';
-
-                scrollbar += '<div class="scrollbar-track">';
-                scrollbar += '<div class="scrollbar-track-piece start"/>';
-                scrollbar += '<div class="scrollbar-thumb"/>';
-                scrollbar += '<div class="scrollbar-track-piece end"/>';
-                scrollbar += '</div>';
-
-                scrollbar += '<div class="scrollbar-button end increment"/>';
-                scrollbar += '<div class="scrollbar-button end decrement"/>';
-
-
-                scrollbar += '</div>';
+                var scrollbar = '<div class="scrollbar ';
+                scrollbar += axis;
+                scrollbar += '"><div class="scrollbar-button start increment"/><div class="scrollbar-button start decrement"/><div class="scrollbar-track"><div class="scrollbar-track-piece start"/><div class="scrollbar-thumb"/><div class="scrollbar-track-piece end"/></div><div class="scrollbar-button end increment"/><div class="scrollbar-button end decrement"/></div>';
                 return scrollbar;
             };
-            var scrollWrapper = '<div class="scroll-wrapper customScrollBar ' + defaults['theme'] + '"/>';
-            var scrollArea = '<div class="scroll-area"/>';
+            // the wrapper
+            var scrollWrapper = '<div class="scroll-wrapper customScrollBar ' + defaults['theme'] + '"><div class="scroll-area"/></div>';
 
             // prepare the content
-            $this['wrap'](scrollWrapper);
-            $this['wrap'](scrollArea);
+            $node['wrap'](scrollWrapper);
 
-            // cache the elements
-            var $wrapper = $this['closest']('.scroll-wrapper');
-            var $area = $this['closest']('.scroll-area');
+            // get the elements
+            var $wrapper = $node['closest']('.scroll-wrapper');
+            var $area = $node['closest']('.scroll-area');
 
+            // get the dimensions
+            var nodeDimensions = {
+                h: $node['outerHeight'](),
+                w: $node['outerWidth']()
+            };
+            var wrapperDimensions = {
+                h: $wrapper['height'](),
+                w: $wrapper['width']()
+            };
+            var areaScroll = {
+                x: $area['scrollLeft'](),
+                y: $area['scrollTop']()
+            };
 
-            // compare the dimensions
-            // this will tell us if we need a scrollbar
-            var thisHeight = $this['outerHeight'](true);
-            var thisWidth = $this['outerWidth'](true);
-            var wrapperHeight = $wrapper['height']();
-            var wrapperWidth = $wrapper['width']();
-            $area['css']({
-                'height': wrapperHeight
+            // gather all our info in one object
+            var data = {
+                x: {
+                    wrapperSize: wrapperDimensions.w,
+                    contentSize: nodeDimensions.w,
+                    scrollDir: 'horizontal',
+                    getScroll: function() {
+                        var scrollPos = $area['scrollLeft']();
+                        return scrollPos;
+                    },
+                    scrollOpts: function(v) {
+                        var opts = {
+                            'scrollLeft': v
+                        };
+                        return opts
+                    }
+                },
+                y: {
+                    wrapperSize: wrapperDimensions.h,
+                    contentSize: nodeDimensions.h,
+                    scrollDir: 'vertical',
+                    getScroll: function() {
+                        var scrollPos = $area['scrollTop']();
+                        return scrollPos;
+                    },
+                    scrollOpts: function(v) {
+                        var opts = {
+                            'scrollTop': v
+                        };
+                        return opts;
+                    }
+                }
+            };
+            // create scrollbars when necessary
+            $['each']([data.x, data.y], function(index, value) {
+                if (value.contentSize > value.wrapperSize) {
+                    $wrapper['append'](newScrollbar(value.scrollDir));
+                    $wrapper['addClass']('scrollbar-' + value.scrollDir);
+                    var opts = {
+                        'paddingBottom': scrollbarWidth()
+                    }
+                    if (index === 0) {
+                        opts = {
+                            'paddingRight': scrollbarWidth()
+                        }
+                    }
+                    $area['css'](opts);
+                }
             });
-            // append scrollbars
-            if (thisHeight > wrapperHeight) {
-                $wrapper['append'](newScrollbar("vertical"));
-                $wrapper['addClass']('scrollbar-vertical');
-                $area['css']({
-                    'paddingRight': scrollbarWidth()
-                });
-            }
-            if (thisWidth > wrapperWidth) {
-                $wrapper['append'](newScrollbar("horizontal"));
-                $wrapper['addClass']('scrollbar-horizontal');
-                $area['css']({
-                    'paddingBottom': scrollbarWidth()
-                });
-            }
-            // if both scrollbars are appended we will also add the helper elements
-            if (thisWidth > wrapperWidth && thisHeight > wrapperHeight) {
+            // and add the helpers if both scrollbars are appended
+            if (data.x.contentSize > data.x.wrapperSize && data.y.contentSize > data.y.wrapperSize) {
                 $wrapper['append'](scrollbarHelpers);
             }
+            // extend our data
+            $['each']([data.x, data.y], function(index, value) {
+                // set the values for each direction
+                value.clickPos = 0;
+                value.delta = 0;
+                value.scrollbar = $wrapper['find']('.scrollbar.' + value.scrollDir);
+                value.scrollbarTrack = value.scrollbar['find']('.scrollbar-track');
+                value.trackSize = (index === 0 ? value.scrollbarTrack['outerWidth']() : value.scrollbarTrack['outerHeight']())
+                value.scrollTrackPiece = value.scrollbarTrack['find']('.scrollbar-track-piece');
+                value.scrollbarTrackPieceStart = value.scrollTrackPiece['filter']('.start');
+                value.scrollbarTrackPieceEnd = value.scrollTrackPiece['filter']('.end');
+                value.scrollbarThumb = value.scrollbarTrack['find']('.scrollbar-thumb');
+                value.scaleFactor = value.contentSize / value.wrapperSize;
+                value.scrollThumbSize = value.trackSize / value.scaleFactor;
+                value.scrollThumbSize = (value.scrollThumbSize < 20 ? 20 : value.scrollThumbSize);
+                value.scrollFactor = value.wrapperSize / value.scrollThumbSize;
+                value.scrollTrigger = value.scrollbar['find']('.scrollbar-button');
+                value.scrollTriggerInc = value.scrollTrigger['filter']('.increment');
+                value.scrollTriggerDec = value.scrollTrigger['filter']('.decrement');
+                // scrolling per triggers (buttons)
+                value.triggerScroll = function(dir) {
+                    // set the basics (vertical scrolling)
+                    var intervalDur = 1;
+                    var modifier = '-=';
+                    modifier = (dir === 'inc' ? '+=' : modifier);
+                    // get some nice interval but never below 1
+                    intervalDur = (value.scaleFactor >= 2 ? value.scaleFactor / 2 : intervalDur);
+                    var opts = value.scrollOpts(modifier + value.scaleFactor + 'px')
+                    scrollTriggerFunction = setInterval(function() {
+                        // perform the scrolling action relative to the content
+                        // (bigger factor = faster scroll)
+                        $area['stop'](true, true)['animate'](opts, value.scaleFactor);
+                    }, intervalDur);
+                };
+                // call this value when a scroll is performed (we are using a flag to throttle these calls)
+                value.performScroll = function() {
+                    var newPos = value.getScroll() / value.scrollFactor;
+                    var newPieceStart = (newPos + value.scrollThumbSize / 2);
+                    var newPieceEnd = value.trackSize - value.scrollThumbSize / 2 - newPos;
+                    $wrapper['addClass']('scrolling-' + value.scrollDir + 'ly');
+                    var thumbOpts = {
+                        'top': newPos
+                    }
+                    var pieceStartOpts = {
+                        'height': newPieceStart
+                    }
+                    var pieceEndOpts = {
+                        'height': newPieceEnd
+                    }
+                    if (index === 0) {
+                        thumbOpts = {
+                            'left': newPos
+                        }
+                        pieceStartOpts = {
+                            'width': newPieceStart
+                        }
+                        pieceEndOpts = {
+                            'width': newPieceEnd
+                        }
+                    }
+                    value.scrollbarThumb['css'](thumbOpts);
+                    value.scrollbarTrackPieceStart['css'](pieceStartOpts);
+                    value.scrollbarTrackPieceEnd['css'](pieceEndOpts);
+                }
+                // set the correct dimension for our thumb
+                var setThumbDimensions = function() {
+                    var height = value.scrollThumbSize;
+                    var width = '';
+                    if (index === 0) {
+                        height = '';
+                        width = value.scrollThumbSize;
+                    }
+                    var dimensions = {
+                        'height': height,
+                        'width': width
+                    }
+                    value.scrollbarThumb['css'](dimensions);
+                };
+                setThumbDimensions();
+                // trigger scroll by dragging the thumb
+                value.scrollbarThumb['on']('mousedown', function(e) {
+                    if (e.which != 1 || e.button != 0) {
+                    return false;
+                }
+                    var $target = $(e.target);
+                    var trackOffset = $target['position']()['top'];
+                    if (index === 0) {
+                        trackOffset = $target['position']()['left'];
+                    }
+                    var pageP = e.pageY;
+                    pageP = (index === 0 ? e.pageX : pageP)
+                    // prevent the cursor from changing to text-input
+                    e.preventDefault();
+                    // calculate the correct offset
+                    value.clickPos = pageP - trackOffset;
+                    if ($target['hasClass']('scrollbar-thumb')) {
+                        $dragging = $target;
+                    }
+                    $wrapper['addClass']('clicked clicked-' + value.scrollDir + 'ly');
+                    defaults['thumbclick'](this, $wrapper);
+                    $node['trigger']('thumbclick');
 
-            // refresh our content values
-            thisHeight = $this['outerHeight'](true);
-            thisWidth = $this['outerWidth'](true);
+                });
+                // trigger scroll by clicking  the buttons
+                value.scrollTriggerInc['on']('mousedown', function(e) {
+                    if (e.which != 1 || e.button != 0) {
+                    return false;
+                }
+                    value.triggerScroll('inc');
+                });
+                value.scrollTriggerDec['on']('mousedown', function(e) {
+                    if (e.which != 1 || e.button != 0) {
+                    return false;
+                }
+                    value.triggerScroll('dec');
+                });
+                // trigger scroll by clicking the track-pieces
+                value.scrollTrackPiece['on']('mousedown', function(e) {
+                    if (e.which != 1 || e.button != 0) {
+                    return false;
+                }
+                    var delta = e.pageY - value.scrollbarTrack['offset']()['top'];
+                    if (index === 0) {
+                        delta = e.pageX - value.scrollbarTrack['offset']()['left'];
+                        $area['scrollLeft'](delta * value.scaleFactor);
 
-            // variables for mouse tracking
-            var clickY = 0;
-            var clickX = 0;
-            var $dragging = null;
-            var scrollTriggerFunction;
-            var deltaY;
-            var deltaX;
+                    } else {
+                        $area['scrollTop'](delta * value.scaleFactor);
+                    }
+                });
 
-            // variables for the scrolling
-            var scrolling;
-            var scrollEnded;
+            });
+
+            // call when the scoll has ended (throttled by a flag)
             var scrollHasEnded = function(e, el) {
                 $(el)['removeClass'](scrollClasses);
-                $this['trigger']('scrollend');
+                $node['trigger']('scrollend');
                 defaults['scrollended'](e, el);
                 scrolling = false;
             };
-            // create one function to handle triggered scrolling
-            var doScroll = function(e, el, direction) {
-                // set the basics (vertical scrolling)
-                var factor = scaleFactorY;
-                var modifier = '-=';
-                var intervalDur = 1;
-                if (direction === 'bottom' || direction === 'right') {
-                    modifier = '+='; // modifier needs to be changed for right or bottom
-                }
-                var opts = {
-                    'scrollTop': modifier + factor + 'px'
-                };
-                if (direction === 'left' || direction === 'right') {
-                    factor = scaleFactorX; // get the correct factor for horizontal
-                    opts = {
-                        'scrollLeft': modifier + factor + 'px'
-                    }; // change the option
-                }
-                intervalDur = (factor >= 2 ? factor / 2 : intervalDur) // get some nice interval but never below 1
-                scrollTriggerFunction = setInterval(function() {
-                    // perform the scrolling action relative to the content
-                    // (bigger factor = faster scroll)
-                    $(el)['stop'](true, true)['animate'](opts, factor);
-                }, intervalDur);
 
-            };
-
-            var $scrollbar = $wrapper['find']('.scrollbar.vertical');
-            var $scrollbarTrack = $scrollbar['find']('.scrollbar-track');
-            var trackHeight = $scrollbarTrack['outerHeight']();
-            var $scrollbarTrackPieceStart = $scrollbarTrack['find']('.scrollbar-track-piece.start');
-            var $scrollbarTrackPieceEnd = $scrollbarTrack['find']('.scrollbar-track-piece.end');
-            var $scrollbarThumb = $scrollbar['find']('.scrollbar-thumb');
-            var scaleFactorY = thisHeight / wrapperHeight;
-            var scrollThumbHeight = trackHeight / scaleFactorY;
-            scrollThumbHeight = (scrollThumbHeight < 20 ? 20 : scrollThumbHeight);
-            var scrollFactorY = wrapperHeight / scrollThumbHeight;
-
-            var $scrollbarHorizontal = $wrapper['find']('.scrollbar.horizontal');
-            var $scrollbarTrackHorizontal = $scrollbarHorizontal['find']('.scrollbar-track');
-            var trackWidth = $scrollbarTrackHorizontal['outerWidth']();
-            var $scrollbarTrackPieceStartHorizontal = $scrollbarTrackHorizontal['find']('.scrollbar-track-piece.start');
-            var $scrollbarTrackPieceEndHorizontal = $scrollbarTrackHorizontal['find']('.scrollbar-track-piece.end');
-            var $scrollbarThumbHorizontal = $scrollbarHorizontal['find']('.scrollbar-thumb');
-            var scaleFactorX = thisWidth / wrapperWidth;
-            var scrollThumbWidth = trackWidth / scaleFactorX;
-            scrollThumbWidth = (scrollThumbWidth < 20 ? 20 : scrollThumbWidth);
-            var scrollFactorX = wrapperWidth / scrollThumbWidth;
-
-            // find the triggers
-            var $scrollTriggerBottom = $scrollbar['find']('.scrollbar-button.increment');
-            var $scrollTriggerTop = $scrollbar['find']('.scrollbar-button.decrement');
-            var $scrollTriggerRight = $scrollbarHorizontal['find']('.scrollbar-button.increment');
-            var $scrollTriggerLeft = $scrollbarHorizontal['find']('.scrollbar-button.decrement');
-            var $scrollTrackPiece = $scrollbarTrack['find']('.scrollbar-track-piece');
-            var $scrollTrackPieceHorizontal = $scrollbarTrackHorizontal['find']('.scrollbar-track-piece');
-
-
-            var thisScrollX = $area['scrollLeft']();
-            var thisScroll = $area['scrollTop']();
-
-            var setThumbSize = function(axis) {
-                var $thumb = $scrollbarThumb;
-                var height = scrollThumbHeight;
-                var width = '';
-                if (axis === 'horizontal') {
-                    $thumb = $scrollbarThumbHorizontal;
-                    height = '';
-                    width = scrollThumbWidth;
-                }
-                var opts = {
-                    'height': height,
-                    'width': width
-                }
-                $thumb['css'](opts);
-            };
-            var horizontalScroll = function(element) {
-                thisScrollX = $(element)['scrollLeft']();
-                var newLeft = thisScrollX / scrollFactorX;
-                $wrapper['addClass']('scrolling-horizontally');
-                $scrollbarThumbHorizontal['css']({
-                    'left': newLeft
-                });
-                $scrollbarTrackPieceStartHorizontal['css']({
-                    'width': (newLeft + scrollThumbWidth / 2)
-                });
-                $scrollbarTrackPieceEndHorizontal['css']({
-                    'width': trackWidth - scrollThumbWidth / 2 - newLeft
-                });
-            };
-            var verticalScroll = function(element) {
-                thisScroll = $(element)['scrollTop']();
-                var newTop = thisScroll / scrollFactorY;
-                $wrapper['addClass']('scrolling-vertically');
-                $scrollbarThumb['css']({
-                    'top': newTop
-                });
-
-                $scrollbarTrackPieceStart['css']({
-                    'height': (newTop + scrollThumbHeight / 2)
-                });
-                $scrollbarTrackPieceEnd['css']({
-                    'height': trackHeight - scrollThumbHeight / 2 - newTop
-                });
-
-            };
-            var scrollToPoint = function(e, axis) {
-                var delta = e.pageY - $(e.target)['closest']('.scrollbar-track')['offset']()['top'];
-                var factor = scaleFactorY
-                var scrollPos = 'scrollTop';
-                if (axis === "horizontal") {
-                    delta = e.pageX - $(e.target)['closest']('.scrollbar-track')['offset']()['left'];
-                    factor = scaleFactorX;
-                    scrollPos = 'scrollLeft';
-                }
-                $area[scrollPos](delta * factor);
-            };
-            // perform actions on init()
-            horizontalScroll($area);
-            verticalScroll($area);
-            setThumbSize('vertical');
-            setThumbSize('horizontal');
-            $wrapper['removeClass'](scrollClasses);
-            // end actions on init()
-
+            // define the actions when the area is being scrolled
             $area['on']('scroll', function(e) {
-                var currentThisScrollX = $area['scrollLeft']();
-                var currentThisScroll = $area['scrollTop']();
-
-                if (currentThisScroll != thisScroll) {
-                    verticalScroll(this);
+                var currentAreaScroll = {
+                    x: $area['scrollLeft'](),
+                    y: $area['scrollTop']()
                 }
-                if (currentThisScrollX != thisScrollX) {
-                    horizontalScroll(this);
+                // scrolling vertically?
+                if (currentAreaScroll.y != areaScroll.y) {
+                    data.y.performScroll();
                 }
+                // scrolling horizontally?
+                if (currentAreaScroll.x != areaScroll.x) {
+                    data.x.performScroll();
+                }
+                // if we this is the first scrollevent we can send the scrollstart events
+                // will only get once until the next scrollend
                 if (!scrolling) {
-                    $this['trigger']('scrollstart');
+                    $node['trigger']('scrollstart');
                     defaults['scrollstarted'](this, $wrapper);
                 }
+                // we are currently scrolling
+                scrolling = true;
+                $wrapper['addClass']('scrolling');
+                // we don't want to end our scroll yet
                 clearTimeout(scrollEnded);
+                // but it will end if we don't scroll for 200ms
                 scrollEnded = setTimeout(function() {
                     scrollHasEnded(e, $wrapper)
                 }, 200);
-                $wrapper['addClass']('scrolling');
-                scrolling = true;
-            });
-
-
-
-            $scrollbarThumb['on']('mousedown', function(e) {
-                var $target = $(e.target);
-                var trackOffset = $target['position']()['top'];
-                // prevent the cursor from changing to text-input
-                e.preventDefault();
-                // calculate the correct offset
-                clickY = e.pageY - trackOffset;
-                if ($target['hasClass']('scrollbar-thumb')) {
-                    $dragging = $target;
-                }
-                $wrapper['addClass']('clicked clicked-vertically');
-                defaults['thumbclick'](this, $wrapper);
-                $this['trigger']('thumbclick');
 
             });
-            $scrollbarThumbHorizontal['on']('mousedown', function(e) {
-                var $target = $(e.target);
-                var trackOffset = $target['position']()['left'];
-                // prevent the cursor from changing to text-input
-                e.preventDefault();
-                // calculate the correct offset
-                clickX = e.pageX - trackOffset;
-                if ($target['hasClass']('scrollbar-thumb')) {
-                    $dragging = $target;
-                }
-                $wrapper['addClass']('clicked clicked-horizontally');
-                defaults['thumbclick'](this, $wrapper);
-                $this['trigger']('thumbclick');
 
-            });
+            // events on the body (will perform as long as flags are active)
             $body['on']('mousemove', function(e) {
                 if ($dragging) {
                     if ($dragging['closest']('.scrollbar')['hasClass']('horizontal')) {
-                        deltaX = e.pageX - clickX;
-                        $area['scrollLeft'](deltaX * scrollFactorX)
+                        data.x.delta = e.pageX - data.x.clickPos;
+                        $area['scrollLeft'](data.x.delta * data.x.scrollFactor)
                     }
                     if ($dragging['closest']('.scrollbar')['hasClass']('vertical')) {
-                        deltaY = e.pageY - clickY;
-                        $area['scrollTop'](deltaY * scrollFactorY)
+                        data.y.delta = e.pageY - data.y.clickPos;
+                        $area['scrollTop'](data.y.delta * data.y.scrollFactor)
                     }
                 }
             })['on']('mouseup mouseleave blur', function() {
@@ -333,37 +338,28 @@
                 $dragging = null;
                 $wrapper['removeClass'](clickClasses);
             });
-            $scrollTriggerBottom['on']('mousedown', function(e) {
-                doScroll(e, $area, 'bottom');
+
+
+            // prepare our element for interaction
+            $area['css']({
+                'height': wrapperDimensions.h
             });
-            $scrollTriggerTop['on']('mousedown', function(e) {
-                doScroll(e, $area, 'top');
-            });
-            $scrollTriggerRight['on']('mousedown', function(e) {
-                doScroll(e, $area, 'right');
-            });
-            $scrollTriggerLeft['on']('mousedown', function(e) {
-                doScroll(e, $area, 'left');
-            });
-            $scrollTrackPiece['on']('mousedown', function(e) {
-                scrollToPoint(e, 'vertical');
-            });
-            $scrollTrackPieceHorizontal['on']('mousedown', function(e) {
-                scrollToPoint(e, 'horizontal');
-            });
+            data.y.performScroll();
+            data.x.performScroll();
+            $wrapper['removeClass'](scrollClasses);
             defaults['created'](this, $wrapper);
-            $this['trigger']('create');
-            $this['addClass']('customScrollBar_processed');
+            $node['trigger']('create');
+            $node['addClass']('customScrollBar_processed');
         },
         'destroy': function() {
-            var $this = $(this);
-            if ($this['hasClass']('customScrollBar_processed')) {
-                var $rest = $this['closest']('.customScrollBar');
+            var $node = $(this);
+            if ($node['hasClass']('customScrollBar_processed')) {
+                var $rest = $node['closest']('.customScrollBar');
                 $rest['find']('.scroll-area')['off']('scroll');
-                $this['removeClass']('original-content customScrollBar_processed')['insertAfter']($rest);
+                $node['removeClass']('original-content customScrollBar_processed')['insertAfter']($rest);
                 $rest['remove']();
                 defaults['destroyed'](this, $rest);
-                $this['trigger']('destroy');
+                $node['trigger']('destroy');
             } else {
                 return false;
             }
